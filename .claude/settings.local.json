@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:\\\\Users\\\\Adrian\\\\.claude\\\\Claude Code Projects\\\\Cestia\\\\src\\\\app\\\\diccionario\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\Adrian\\\\.claude\\\\Claude Code Projects\\\\Cestia\\\\src\\\\app\\\\api\\\\alias\\\\[id]\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\Adrian\\\\.claude\\\\Claude Code Projects\\\\Cestia\\\\src\\\\app\\\\api\\\\cron\\\\housekeeping\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\Adrian\\\\.claude\\\\Claude Code Projects\\\\Cestia\\\\supabase\\\\migrations\")"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "claude_design"
+  ]
+}

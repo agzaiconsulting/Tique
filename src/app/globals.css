@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta Tique */
+  --color-papel: #F3EEDF;
+  --color-tinta: #182A1F;
+  --color-verde: #1F4435;
+  --color-pimenton: #96341F;
+  --color-laton: #AC8A2E;
+  --color-linea: #DCD2B8;
+
+  /* Tipografías (las CSS vars las inyecta next/font en el html) */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'Courier New', monospace;
+}
+
+body {
+  background-color: var(--color-papel);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Foco visible accesible */
+:focus-visible {
+  outline: 2px solid var(--color-laton);
+  outline-offset: 2px;
+}

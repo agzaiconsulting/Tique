@@ -1,0 +1,28 @@
+# env
+.env.local
+.env.*.local
+
+# deps
+node_modules/
+
+# build
+.next/
+out/
+dist/
+
+# vercel
+.vercel/
+
+# supabase
+.supabase/
+
+# logs
+*.log
+npm-debug.log*
+
+# system
+.DS_Store
+Thumbs.db
+
+# tickets de prueba (imágenes reales, no van al repo)
+tickets/
