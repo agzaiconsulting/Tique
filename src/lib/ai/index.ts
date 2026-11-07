@@ -3,14 +3,9 @@ import path from 'path';
 import type { Sugerencia } from '@/lib/types';
 import { CADENAS } from '@/../config/cadenas';
 import type { Cadena } from '@/../config/cadenas';
-
-export const CATEGORIAS = [
-  'Lácteos', 'Carne', 'Pescado', 'Fruta y verdura', 'Panadería',
-  'Charcutería', 'Conservas', 'Bebidas', 'Limpieza', 'Higiene',
-  'Congelados', 'Dulces y snacks', 'Droguería', 'Otros',
-] as const;
-
-export type Categoria = (typeof CATEGORIAS)[number];
+import { CATEGORIAS, type Categoria } from '@/lib/categorias';
+export { CATEGORIAS } from '@/lib/categorias';
+export type { Categoria } from '@/lib/categorias';
 
 const NO_SE: Sugerencia = {
   producto: 'NO_SE', marca: '', formato: '', categoria: '', confianza: 0,

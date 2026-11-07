@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { CATEGORIAS } from '@/lib/ai';
-import type { Categoria } from '@/lib/ai';
+import { CATEGORIAS } from '@/lib/categorias';
+import type { Categoria } from '@/lib/categorias';
 
 // ------------------------------------------------------------------ tipos
 export interface AliasItem {
