@@ -25,4 +25,4 @@ npm-debug.log*
 Thumbs.db
 
 # tickets de prueba (imágenes reales, no van al repo)
-tickets/
+/tickets/
