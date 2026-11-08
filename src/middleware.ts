@@ -39,6 +39,9 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/login/confirmar');
 
   if (!user && !isPublic) {
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+    }
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
