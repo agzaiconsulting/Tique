@@ -68,11 +68,19 @@ function LineaItem({
 }: {
   linea: LineaConSugerencia;
   onConfirmar: (id: string) => void;
-  onRechazar: (id: string) => void;
+  onRechazar: (id: string, correccion: string) => void;
 }) {
+  const [corrigiendo, setCorrigiendo] = useState(false);
+  const [texto, setTexto] = useState('');
   const nombre = nombreLinea(linea);
 
   if (linea.estado === 'descartada') return null;
+
+  function handleEnviarCorreccion() {
+    onRechazar(linea.id, texto.trim());
+    setCorrigiendo(false);
+    setTexto('');
+  }
 
   return (
     <li className="flex gap-3 py-3 border-b border-linea/60 last:border-0">
@@ -111,7 +119,7 @@ function LineaItem({
         )}
 
         {/* Botones para sugeridas */}
-        {linea.estado === 'sugerida' && nombre && (
+        {linea.estado === 'sugerida' && nombre && !corrigiendo && (
           <div className="flex gap-2 mt-1.5">
             <button
               onClick={() => onConfirmar(linea.id)}
@@ -120,11 +128,44 @@ function LineaItem({
               Confirmar
             </button>
             <button
-              onClick={() => onRechazar(linea.id)}
+              onClick={() => setCorrigiendo(true)}
               className="rounded-md border border-linea px-2 py-0.5 text-xs font-medium text-tinta/50 hover:border-tinta/30 transition-colors"
             >
               No es correcto
             </button>
+          </div>
+        )}
+
+        {/* Input de corrección */}
+        {corrigiendo && (
+          <div className="mt-2 space-y-1.5">
+            <input
+              autoFocus
+              type="text"
+              value={texto}
+              onChange={(e) => setTexto(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && texto.trim()) handleEnviarCorreccion();
+                if (e.key === 'Escape') { setCorrigiendo(false); setTexto(''); }
+              }}
+              placeholder="¿Qué es este producto?"
+              className="w-full rounded-md border border-linea bg-white/60 px-2.5 py-1.5 text-xs text-tinta placeholder:text-tinta/30 focus:border-verde focus:outline-none focus:ring-1 focus:ring-verde"
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={handleEnviarCorreccion}
+                disabled={!texto.trim()}
+                className="rounded-md border border-verde/30 bg-verde/8 px-2 py-0.5 text-xs font-medium text-verde hover:bg-verde/15 transition-colors disabled:opacity-40"
+              >
+                Enviar
+              </button>
+              <button
+                onClick={() => { setCorrigiendo(false); setTexto(''); }}
+                className="rounded-md border border-linea px-2 py-0.5 text-xs font-medium text-tinta/50 hover:border-tinta/30 transition-colors"
+              >
+                Cancelar
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -217,9 +258,8 @@ export default function ReviewClient({
   const yaConfirmado = ticket.estado === 'confirmado';
   const lineasVisibles = lineas.filter((l) => l.estado !== 'descartada');
 
-  async function actualizarLinea(id: string, accion: 'confirmar' | 'rechazar') {
+  async function actualizarLinea(id: string, accion: 'confirmar' | 'rechazar', correccion?: string) {
     const nuevoEstado = accion === 'confirmar' ? 'confirmada' : 'sin_identificar';
-    // Optimistic update
     setLineas((prev) =>
       prev.map((l) => (l.id === id ? { ...l, estado: nuevoEstado } : l)),
     );
@@ -227,11 +267,10 @@ export default function ReviewClient({
       const res = await fetch(`/api/ticket-lineas/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accion }),
+        body: JSON.stringify({ accion, correccion }),
       });
       if (!res.ok) throw new Error();
     } catch {
-      // Revert on error
       setLineas((prev) =>
         prev.map((l) => (l.id === id ? { ...l, estado: 'sugerida' as const } : l)),
       );
@@ -314,7 +353,7 @@ export default function ReviewClient({
                 key={l.id}
                 linea={l}
                 onConfirmar={(id) => actualizarLinea(id, 'confirmar')}
-                onRechazar={(id) => actualizarLinea(id, 'rechazar')}
+                onRechazar={(id, correccion) => actualizarLinea(id, 'rechazar', correccion)}
               />
             ))}
           </ul>

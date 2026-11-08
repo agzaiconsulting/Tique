@@ -15,7 +15,7 @@ export async function PATCH(
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const body = (await request.json()) as { accion?: string };
+  const body = (await request.json()) as { accion?: string; correccion?: string };
   if (body.accion !== 'confirmar' && body.accion !== 'rechazar')
     return NextResponse.json({ error: 'Acción inválida' }, { status: 400 });
 
@@ -31,7 +31,12 @@ export async function PATCH(
   const service = createServiceClient();
   const nuevoEstado = body.accion === 'confirmar' ? 'confirmada' : 'sin_identificar';
 
-  await service.from('ticket_lineas').update({ estado: nuevoEstado }).eq('id', id);
+  const updatePayload: Record<string, unknown> = { estado: nuevoEstado };
+  if (body.accion === 'rechazar' && body.correccion?.trim()) {
+    updatePayload.correccion = body.correccion.trim();
+  }
+
+  await service.from('ticket_lineas').update(updatePayload).eq('id', id);
 
   // Al confirmar individualmente: incrementar n_confirmaciones del alias
   if (body.accion === 'confirmar' && linea.alias_id) {
