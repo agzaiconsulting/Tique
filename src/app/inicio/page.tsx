@@ -5,6 +5,8 @@ import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
 import { TabBar } from '@/components/ui/tab-bar';
 
+export const dynamic = 'force-dynamic';
+
 /* ── Category mapping DB → design groups ── */
 
 const GRUPOS = {
