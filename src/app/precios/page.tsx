@@ -17,8 +17,10 @@ function fmtEur(n: number) {
   return n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 }
 
+interface Sugerencia { producto: string; marca: string; categoria: string }
+
 interface PrecioEntry {
-  id: string;
+  key: string;
   nombre: string;
   marca: string | null;
   grupo: Grupo;
@@ -34,25 +36,32 @@ export default async function PreciosPage() {
 
   const { data: lineas } = await supabase
     .from('ticket_lineas')
-    .select('precio, productos(id, nombre, marca, categoria), tickets(fecha, cadena)')
+    .select('precio, producto_id, alias_id, productos(id, nombre, marca, categoria), alias(sugerencia), tickets(fecha, cadena)')
     .in('estado', ['auto', 'sugerida', 'confirmada'])
-    .not('producto_id', 'is', null);
+    .not('alias_id', 'is', null);
 
   // For each product, keep the most recent price entry
   const map = new Map<string, PrecioEntry>();
 
   for (const l of lineas ?? []) {
-    const prod = (l.productos as unknown as { id: string; nombre: string; marca: string | null; categoria: string } | null);
-    if (!prod?.id) continue;
-    const ticket = (l.tickets as unknown as { fecha: string | null; cadena: string | null } | null);
+    const key = (l.producto_id as string | null) ?? (l.alias_id as string | null);
+    if (!key) continue;
 
-    const existing = map.get(prod.id);
+    const ticket = (l.tickets as unknown as { fecha: string | null; cadena: string | null } | null);
+    const prod = (l.productos as unknown as { id: string; nombre: string; marca: string | null; categoria: string } | null);
+    const sug  = ((l.alias as unknown as { sugerencia: Sugerencia | null } | null))?.sugerencia;
+
+    const nombre    = prod?.nombre    ?? sug?.producto  ?? '—';
+    const marca     = prod?.marca     ?? sug?.marca      ?? null;
+    const categoria = prod?.categoria ?? sug?.categoria  ?? 'Otros';
+
+    const existing = map.get(key);
     if (!existing || (ticket?.fecha && ticket.fecha > (existing.fecha ?? ''))) {
-      map.set(prod.id, {
-        id: prod.id,
-        nombre: prod.nombre ?? '—',
-        marca: prod.marca ?? null,
-        grupo: mapGrupo(prod.categoria ?? 'Otros'),
+      map.set(key, {
+        key,
+        nombre,
+        marca,
+        grupo: mapGrupo(categoria),
         precio: l.precio ?? 0,
         fecha: ticket?.fecha ?? null,
         cadena: ticket?.cadena ?? null,
@@ -109,7 +118,7 @@ export default async function PreciosPage() {
                 <div className="bg-tq-card rounded-[20px] shadow-tq-card overflow-hidden">
                   {byGrupo[grupo]!.map((p, i) => (
                     <div
-                      key={p.id}
+                      key={p.key}
                       className={`flex items-center gap-3 px-4 py-3.5 ${i > 0 ? 'border-t border-tq-line' : ''}`}
                     >
                       <div className="flex-1 min-w-0">

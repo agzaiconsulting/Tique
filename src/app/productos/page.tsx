@@ -17,8 +17,10 @@ function fmtEur(n: number) {
   return n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 }
 
+interface Sugerencia { producto: string; marca: string; categoria: string }
+
 interface ProdAgregado {
-  id: string;
+  key: string;
   nombre: string;
   marca: string | null;
   grupo: Grupo;
@@ -33,26 +35,36 @@ export default async function ProductosPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
+  // Include alias(sugerencia) so lineas without producto_id still show product names
   const { data: lineas } = await supabase
     .from('ticket_lineas')
-    .select('precio, productos(id, nombre, marca, categoria), tickets(fecha, cadena)')
+    .select('precio, producto_id, alias_id, productos(id, nombre, marca, categoria), alias(sugerencia), tickets(fecha, cadena)')
     .in('estado', ['auto', 'sugerida', 'confirmada'])
-    .not('producto_id', 'is', null);
+    .not('alias_id', 'is', null);
 
-  // Aggregate by product
+  // Aggregate by producto_id (if available) or alias_id
   const map = new Map<string, ProdAgregado>();
 
   for (const l of lineas ?? []) {
-    const prod = (l.productos as unknown as { id: string; nombre: string; marca: string | null; categoria: string } | null);
-    if (!prod?.id) continue;
+    const key = (l.producto_id as string | null) ?? (l.alias_id as string | null);
+    if (!key) continue;
+
     const ticket = (l.tickets as unknown as { fecha: string | null; cadena: string | null } | null);
 
-    if (!map.has(prod.id)) {
-      map.set(prod.id, {
-        id: prod.id,
-        nombre: prod.nombre ?? '—',
-        marca: prod.marca ?? null,
-        grupo: mapGrupo(prod.categoria ?? 'Otros'),
+    // Prefer productos table data; fallback to alias sugerencia
+    const prod = (l.productos as unknown as { id: string; nombre: string; marca: string | null; categoria: string } | null);
+    const sug  = ((l.alias as unknown as { sugerencia: Sugerencia | null } | null))?.sugerencia;
+
+    const nombre   = prod?.nombre   ?? sug?.producto  ?? '—';
+    const marca    = prod?.marca    ?? sug?.marca      ?? null;
+    const categoria = prod?.categoria ?? sug?.categoria ?? 'Otros';
+
+    if (!map.has(key)) {
+      map.set(key, {
+        key,
+        nombre,
+        marca,
+        grupo: mapGrupo(categoria),
         compras: 0,
         ultimoPrecio: 0,
         ultimaFecha: null,
@@ -60,7 +72,7 @@ export default async function ProductosPage() {
       });
     }
 
-    const agg = map.get(prod.id)!;
+    const agg = map.get(key)!;
     agg.compras += 1;
     if (!agg.ultimaFecha || (ticket?.fecha && ticket.fecha > agg.ultimaFecha)) {
       agg.ultimoPrecio = l.precio ?? 0;
@@ -80,13 +92,16 @@ export default async function ProductosPage() {
   }
 
   const hasProducts = map.size > 0;
+  const totalProductos = map.size;
 
   return (
     <div className="min-h-screen bg-tq-bg font-jakarta flex flex-col">
       {/* Header */}
       <header className="px-5 pt-14 pb-4">
         <h1 className="text-[22px] font-extrabold tracking-[-0.5px]">Mis productos</h1>
-        <p className="text-[13px] text-tq-ink2 mt-0.5">Productos que has comprado</p>
+        {totalProductos > 0 && (
+          <p className="text-[13px] text-tq-ink2 mt-0.5">{totalProductos} productos identificados</p>
+        )}
       </header>
 
       <main className="flex-1 px-5 pb-32 max-w-[480px] mx-auto w-full">
@@ -120,7 +135,7 @@ export default async function ProductosPage() {
                 <div className="bg-tq-card rounded-[20px] shadow-tq-card overflow-hidden">
                   {byGrupo[grupo]!.map((p, i) => (
                     <div
-                      key={p.id}
+                      key={p.key}
                       className={`flex items-center gap-3 px-4 py-3.5 ${i > 0 ? 'border-t border-tq-line' : ''}`}
                     >
                       <div className="flex-1 min-w-0">
