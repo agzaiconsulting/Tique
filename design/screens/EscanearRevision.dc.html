@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Escanear: revisión del ticket</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes tqUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tq-row{animation:tqUp .45s cubic-bezier(.2,.7,.2,1) both;transition:background .35s ease, box-shadow .35s ease}
+.tq-chip{transition:transform .15s ease, background .2s ease}
+.tq-chip:active{transform:scale(.94)}
+.tq-btn{transition:transform .15s ease}
+.tq-btn:active{transform:scale(.97)}
+.tq-ok{transition:transform .15s ease, opacity .2s ease}
+.tq-ok:active{transform:scale(.94)}
+</style>
+</helmet>
+<div style="width: 390px; height: 1760px; position: relative; overflow: hidden; background: #F5F7F6; color: #14201B; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-numeric: tabular-nums">
+<main style="padding: 52px 20px 190px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+
+<header style="display: flex; align-items: center; justify-content: space-between">
+<a href="EscanearCamara.dc.html" aria-label="Volver a la cámara" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E4EAE7; color: #14201B; display: flex; align-items: center; justify-content: center; box-sizing: border-box">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+</a>
+<span style="font-size: 16px; font-weight: 700">Revisa tu ticket</span>
+<a href="Main.dc.html" style="height: 44px; display: flex; align-items: center; padding: 0 4px; font-size: 14px; font-weight: 700; color: #B23F2A; text-decoration: none">Descartar</a>
+</header>
+
+<section style="background: #FFFFFF; border-radius: 26px; padding: 20px; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.07); display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 48px; height: 48px; border-radius: 16px; background: #DDF5EA; color: #0B7A57; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; flex: none">M</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 18px; font-weight: 800">Mercadona</span>
+<span style="font-size: 13px; color: #56665F">C/ Alcalá 214, Madrid</span>
+</span>
+<button aria-label="Editar supermercado y fecha" style="width: 44px; height: 44px; border-radius: 14px; border: 0; background: #F1F5F3; color: #14201B; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
+</button>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 14px; border-top: 1px solid #E4EAE7">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; font-weight: 600; color: #56665F">Fecha</span>
+<span style="font-size: 15px; font-weight: 700">Sáb 14 nov 2026 · 18:42</span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 2px; align-items: flex-end">
+<span style="font-size: 12px; font-weight: 600; color: #56665F">Total</span>
+<span style="font-size: 30px; font-weight: 800; letter-spacing: -1px; line-height: 1">42,15 €</span>
+</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<span style="font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 99px; background: #EEF3F0; color: #3E4C46">12 productos</span>
+<sc-if value="{{hasPending}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 99px; background: #FFF1CC; color: #7A4F00">{{pendingLabel}}</span>
+</sc-if>
+<span style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 99px; background: #DDF5EA; color: #0B7A57"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>La suma cuadra con el total</span>
+</div>
+</section>
+
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 4px 4px 0">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">Productos detectados</h2>
+<span style="font-size: 12px; color: #56665F">Toca la categoría para cambiarla</span>
+</div>
+
+<section style="background: #FFFFFF; border-radius: 26px; padding: 6px 16px; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.06); display: flex; flex-direction: column; gap: 2px">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="12">
+<div class="tq-row" style="margin: {{l.margin}}; padding: {{l.pad}}; background: {{l.bg}}; box-shadow: {{l.ring}}; border-radius: 16px; display: flex; flex-direction: column; gap: 7px; animation-delay: {{l.delay}}">
+<div style="display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #56665F; letter-spacing: 0.2px">
+<span>{{l.raw}}</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: flex-start">
+<span style="font-size: 15px; font-weight: 700; line-height: 1.3">{{l.name}}</span>
+<span style="font-size: 16px; font-weight: 800; white-space: nowrap">{{l.price}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<button class="tq-chip" onClick="{{l.cycle}}" aria-label="{{l.chipLabel}}" style="height: 30px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px 0 12px; border: 0; border-radius: 99px; background: {{l.catBg}}; color: {{l.catFg}}; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer">
+{{l.cat}}
+<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+<span style="font-size: 12px; color: #56665F">{{l.qty}}</span>
+</div>
+<sc-if value="{{l.flagged}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 8px; padding-top: 10px; margin-top: 2px; border-top: 1px dashed #E8C766">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A4F00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none"><path d="M12 4l9 16H3z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+<span style="flex: 1; font-size: 12px; font-weight: 700; line-height: 1.35; color: #7A4F00">{{l.reason}}</span>
+<button class="tq-ok" onClick="{{l.ok}}" style="height: 34px; padding: 0 12px; border: 0; border-radius: 99px; background: #14201B; color: #FFFFFF; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap">Es correcto</button>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</section>
+
+<button style="height: 48px; border-radius: 16px; border: 1.5px dashed #C3CEC9; background: transparent; color: #14201B; font-family: inherit; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+Añadir una línea que falte
+</button>
+</main>
+
+<footer style="position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 20px 30px; background: #FFFFFF; border-radius: 26px 26px 0 0; box-shadow: 0 -10px 30px rgba(20,48,36,.08); display: flex; flex-direction: column; gap: 12px">
+<sc-if value="{{hasPending}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 13px; font-weight: 600; color: #7A4F00; text-align: center">{{footerHint}}</span>
+</sc-if>
+<a href="Main.dc.html" class="tq-btn" style="height: 56px; border-radius: 18px; background: #34D399; color: #073B27; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+Confirmar ticket
+</a>
+<span style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: #56665F">
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+La imagen se elimina al confirmar
+</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1760}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ok: {}, cats: {} };
+  }
+  renderVals() {
+    const self = this;
+    const order = ['Despensa', 'Frescos', 'Bebidas', 'Limpieza', 'Higiene', 'Otros'];
+    const colors = {
+      Despensa: ['#E8F0FF', '#1D4ED8'], Frescos: ['#DDF5EA', '#0B7A57'], Bebidas: ['#FFF1D6', '#8A5A00'],
+      Limpieza: ['#EEE8FF', '#5B3FC4'], Higiene: ['#FDE7F3', '#9D2A6B'], Otros: ['#EEF3F0', '#3E4C46']
+    };
+    const raw = [
+      ['CAFE MOL NAT HCD 250', 'Café molido natural Hacendado 250 g', 'Despensa', '4,15 €', '1 ud'],
+      ['LECHE SEMI DES HCD 6X1L', 'Leche semidesnatada Hacendado 6 × 1 L', 'Frescos', '5,34 €', '1 pack'],
+      ['PLATANO CANARIAS', 'Plátano de Canarias', 'Frescos', '2,79 €', '1,120 kg × 2,49 €/kg'],
+      ['PECHUGA POLLO FIL', 'Pechuga de pollo fileteada', 'Frescos', '5,49 €', '0,674 kg × 8,15 €/kg'],
+      ['AOVE HCD 1L', 'Aceite de oliva virgen extra Hacendado 1 L', 'Despensa', '6,95 €', '1 ud'],
+      ['YOG GRG NT 6U', 'Yogur griego natural Hacendado 6 uds', 'Frescos', '1,95 €', '1 pack', 'Texto poco legible. ¿Es este producto?'],
+      ['DETERG LIQ BOSQUE', 'Detergente líquido Bosque Verde 40 lavados', 'Limpieza', '5,50 €', '1 ud'],
+      ['PAN MOLDE INT 0%', 'Pan de molde integral Hacendado 0 %', 'Despensa', '1,45 €', '1 ud'],
+      ['CERV TOSTADA 6X33', 'Cerveza tostada 6 × 33 cl', 'Bebidas', '3,90 €', '1 pack'],
+      ['GEL DUCHA AVENA', 'Gel de ducha avena Deliplus 750 ml', 'Higiene', '1,60 €', '1 ud'],
+      ['TOMATE RAMA', 'Tomate en rama', 'Frescos', '2,15 €', '0,860 kg × 2,50 €/kg'],
+      ['SLS TOM FRT 4OO', 'Tomate frito Hacendado 400 g', 'Despensa', '0,88 €', '1 ud', 'Baja confianza en el nombre. Compruébalo.']
+    ];
+    let pending = 0;
+    const lines = raw.map(function (r, i) {
+      const cat = self.state.cats[i] || r[2];
+      const flagged = !!r[5] && !self.state.ok[i];
+      if (flagged) pending++;
+      const last = i === raw.length - 1;
+      return {
+        raw: r[0], name: r[1], cat: cat, price: r[3], qty: r[4], reason: r[5] || '',
+        flagged: flagged,
+        catBg: colors[cat][0], catFg: colors[cat][1],
+        chipLabel: 'Categoría: ' + cat + '. Toca para cambiarla',
+        margin: flagged ? '8px -8px' : '0',
+        pad: flagged ? '14px 12px' : '14px 0',
+        bg: flagged ? '#FFF8E5' : 'transparent',
+        ring: flagged ? 'inset 0 0 0 1.5px #F2C94C' : (last ? 'none' : 'inset 0 -1px 0 #EEF2F0'),
+        delay: (i * 0.04).toFixed(2) + 's',
+        cycle: function () {
+          const next = order[(order.indexOf(cat) + 1) % order.length];
+          const cats = Object.assign({}, self.state.cats);
+          cats[i] = next;
+          self.setState({ cats: cats });
+        },
+        ok: function () {
+          const ok = Object.assign({}, self.state.ok);
+          ok[i] = true;
+          self.setState({ ok: ok });
+        }
+      };
+    });
+    return {
+      lines: lines,
+      hasPending: pending > 0,
+      pendingLabel: pending === 1 ? '1 por revisar' : pending + ' por revisar',
+      footerHint: pending === 1 ? 'Queda 1 línea marcada para revisar' : 'Quedan ' + pending + ' líneas marcadas para revisar'
+    };
+  }
+}
+</script>
+</body>
+</html>

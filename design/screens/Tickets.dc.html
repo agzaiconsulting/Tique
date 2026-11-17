@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Historial de tickets</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes tqUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tq-row{animation:tqUp .45s cubic-bezier(.2,.7,.2,1) both;transition:background .2s ease}
+.tq-row:hover{background:#F7FAF8}
+.tq-chip{transition:background .2s ease, color .2s ease, transform .15s ease}
+.tq-chip:active{transform:scale(.94)}
+.tq-search:focus{outline:2px solid #34D399;outline-offset:2px}
+.tq-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</helmet>
+<div style="width: 390px; height: 1460px; position: relative; overflow: hidden; background: #F5F7F6; color: #14201B; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-numeric: tabular-nums">
+<main style="padding: 52px 20px 140px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box">
+
+<header style="display: flex; align-items: center; gap: 12px">
+<a href="Main.dc.html" aria-label="Volver a inicio" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E4EAE7; color: #14201B; display: flex; align-items: center; justify-content: center; box-sizing: border-box; flex: none">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+</a>
+<h1 style="margin: 0; flex: 1; font-size: 24px; font-weight: 800; letter-spacing: -0.6px">Tus tickets</h1>
+<button aria-label="Cambiar mes" style="height: 44px; padding: 0 12px; border-radius: 14px; border: 1px solid #E4EAE7; background: #FFFFFF; color: #14201B; font-family: inherit; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; cursor: pointer">Noviembre
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+</header>
+
+<section style="background: #FFFFFF; border-radius: 24px; padding: 16px 18px; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.06); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 19px; font-weight: 800; letter-spacing: -0.4px">{{sumTotal}}</span><span style="font-size: 12px; color: #56665F">gastado</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 19px; font-weight: 800; letter-spacing: -0.4px">{{sumCount}}</span><span style="font-size: 12px; color: #56665F">tickets</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 19px; font-weight: 800; letter-spacing: -0.4px">{{sumAvg}}</span><span style="font-size: 12px; color: #56665F">ticket medio</span></div>
+</section>
+
+<div style="position: relative">
+<label for="tq-buscar-t" class="tq-sr">Buscar en tus tickets</label>
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56665F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 16px; top: 15px"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+<input id="tq-buscar-t" class="tq-search" type="search" placeholder="Buscar súper o producto" style="width: 100%; height: 50px; border-radius: 16px; border: 1px solid #E4EAE7; background: #FFFFFF; padding: 0 16px 0 48px; box-sizing: border-box; font-family: inherit; font-size: 15px; color: #14201B">
+</div>
+
+<div role="tablist" aria-label="Quién escaneó" style="display: flex; gap: 8px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="3">
+<button role="tab" aria-selected="{{c.sel}}" class="tq-chip" onClick="{{c.pick}}" style="height: 38px; padding: 0 16px; border-radius: 99px; border: 1px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer">{{c.label}}</button>
+</sc-for>
+</div>
+
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+<section style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 4px">
+<h2 style="margin: 0; font-size: 13px; font-weight: 800; color: #56665F; text-transform: uppercase; letter-spacing: 0.7px">{{g.title}}</h2>
+<span style="font-size: 13px; font-weight: 700; color: #3E4C46">{{g.total}}</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 22px; padding: 4px 0; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.05)">
+<sc-for list="{{g.items}}" as="t" hint-placeholder-count="6">
+<a href="TicketDetalle.dc.html" class="tq-row" style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; text-decoration: none; color: #14201B; box-shadow: {{t.divider}}; animation-delay: {{t.delay}}">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: {{t.tileBg}}; color: {{t.tileFg}}; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; flex: none">{{t.initial}}</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 15px; font-weight: 700">{{t.store}}</span>
+<span style="font-size: 12px; color: #56665F">{{t.meta}}</span>
+</span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px">
+<span style="font-size: 16px; font-weight: 800">{{t.total}}</span>
+<span style="font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 99px; background: {{t.whoBg}}; color: {{t.whoFg}}">{{t.who}}</span>
+</span>
+</a>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</main>
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" active="inicio" hint-size="390px,104px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1460}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { who: 'Todos' };
+  }
+  renderVals() {
+    const self = this;
+    const tiles = {
+      Mercadona: ['rgba(52,211,153,0.18)', '#0B7A57', 'M'],
+      Lidl: ['rgba(96,165,250,0.2)', '#1D4ED8', 'L'],
+      'Día': ['rgba(251,191,36,0.22)', '#8A5A00', 'D'],
+      Carrefour: ['rgba(167,139,250,0.22)', '#5B3FC4', 'C']
+    };
+    const all = [
+      [1, 'Mercadona', 'Sáb 14 nov', 12, 42.15, 'Lucía'],
+      [1, 'Lidl', 'Vie 13 nov', 9, 32.10, 'Javi'],
+      [1, 'Mercadona', 'Mié 11 nov', 17, 58.40, 'Lucía'],
+      [1, 'Mercadona', 'Mar 10 nov', 3, 8.20, 'Javi'],
+      [1, 'Día', 'Lun 9 nov', 9, 25.90, 'Lucía'],
+      [1, 'Mercadona', 'Lun 9 nov', 6, 15.25, 'Lucía'],
+      [2, 'Carrefour', 'Sáb 7 nov', 7, 21.75, 'Javi'],
+      [2, 'Mercadona', 'Sáb 7 nov', 8, 18.60, 'Lucía'],
+      [2, 'Lidl', 'Vie 6 nov', 6, 19.85, 'Javi'],
+      [2, 'Mercadona', 'Jue 5 nov', 5, 12.90, 'Lucía'],
+      [2, 'Lidl', 'Mié 4 nov', 5, 14.30, 'Lucía'],
+      [2, 'Mercadona', 'Mar 3 nov', 4, 9.45, 'Lucía'],
+      [2, 'Mercadona', 'Lun 2 nov', 9, 21.35, 'Lucía'],
+      [2, 'Lidl', 'Lun 2 nov', 4, 12.20, 'Javi']
+    ];
+    function eur(v) { return v.toFixed(2).replace('.', ',') + ' €'; }
+    const who = this.state.who;
+    const list = all.filter(function (r) { return who === 'Todos' || r[5] === who; });
+    const titles = { 1: 'Del 9 al 15 nov', 2: 'Del 2 al 8 nov' };
+    const groups = [1, 2].map(function (w) {
+      const rows = list.filter(function (r) { return r[0] === w; });
+      const total = rows.reduce(function (s, r) { return s + r[4]; }, 0);
+      return {
+        title: titles[w], total: eur(total),
+        items: rows.map(function (r, i) {
+          const t = tiles[r[1]];
+          const me = r[5] === 'Lucía';
+          return {
+            store: r[1], meta: r[2] + ' · ' + r[3] + ' productos', total: eur(r[4]),
+            initial: t[2], tileBg: t[0], tileFg: t[1],
+            who: me ? 'Tú' : r[5], whoBg: me ? '#EEF3F0' : '#E8F0FF', whoFg: me ? '#3E4C46' : '#1D4ED8',
+            divider: i === rows.length - 1 ? 'none' : 'inset 0 -1px 0 #EEF2F0',
+            delay: (i * 0.04).toFixed(2) + 's'
+          };
+        })
+      };
+    }).filter(function (g) { return g.items.length > 0; });
+    const sum = list.reduce(function (s, r) { return s + r[4]; }, 0);
+    const chips = [['Todos', 'Todos'], ['Lucía', 'Míos'], ['Javi', 'De Javi']].map(function (c) {
+      const sel = c[0] === who;
+      return {
+        label: c[1], sel: sel ? 'true' : 'false',
+        bg: sel ? '#14201B' : '#FFFFFF', fg: sel ? '#FFFFFF' : '#14201B', border: sel ? '#14201B' : '#E4EAE7',
+        pick: function () { self.setState({ who: c[0] }); }
+      };
+    });
+    return {
+      groups: groups, chips: chips,
+      sumTotal: eur(sum), sumCount: String(list.length), sumAvg: eur(list.length ? sum / list.length : 0)
+    };
+  }
+}
+</script>
+</body>
+</html>

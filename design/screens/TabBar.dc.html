@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Barra de navegación</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.tq-tab{transition:color .2s ease, transform .15s ease}
+.tq-tab:active{transform:scale(.92)}
+.tq-fab{transition:transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .2s ease}
+.tq-fab:hover{transform:translateY(-3px)}
+.tq-fab:active{transform:scale(.94)}
+</style>
+</helmet>
+<nav aria-label="Navegación principal" style="width: 390px; height: 104px; position: relative; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: {{t.bar}}; border-top: 1px solid {{t.line}}; box-shadow: 0 -8px 24px rgba(20,48,36,0.06); border-radius: 24px 24px 0 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start; padding: 10px 6px 0; box-sizing: border-box">
+<a href="Main.dc.html" class="tq-tab" aria-current="{{cur.inicio}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: {{c.inicio}}; font-size: 11px; font-weight: {{w.inicio}}; min-height: 48px; padding-top: 4px">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg>
+<span>Inicio</span>
+</a>
+<a href="Productos.dc.html" class="tq-tab" aria-current="{{cur.productos}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: {{c.productos}}; font-size: 11px; font-weight: {{w.productos}}; min-height: 48px; padding-top: 4px">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5V4.5a1 1 0 0 1 1-1h8l8 8.5-8.5 8.5z"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+<span>Productos</span>
+</a>
+<span style="display: flex; justify-content: center; padding-top: 46px; font-size: 11px; font-weight: 700; color: {{t.ink}}">Escanear</span>
+<a href="Precios.dc.html" class="tq-tab" aria-current="{{cur.precios}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: {{c.precios}}; font-size: 11px; font-weight: {{w.precios}}; min-height: 48px; padding-top: 4px">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+<span>Precios</span>
+</a>
+<a href="Perfil.dc.html" class="tq-tab" aria-current="{{cur.perfil}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: {{c.perfil}}; font-size: 11px; font-weight: {{w.perfil}}; min-height: 48px; padding-top: 4px">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+<span>Perfil</span>
+</a>
+</div>
+<a href="EscanearCamara.dc.html" class="tq-fab" aria-label="Escanear ticket" style="position: absolute; left: 50%; top: 0; margin-left: -36px; width: 72px; height: 72px; border-radius: 26px; background: #34D399; color: #073B27; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 24px rgba(16,160,110,0.35), 0 0 0 6px {{t.ring}}; text-decoration: none">
+<svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8"/><path d="M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8"/><path d="M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16"/><path d="M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M8 9h8"/><path d="M8 12h8"/><path d="M8 15h5"/></svg>
+</a>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["inicio","productos","precios","perfil"],"default":"inicio"},"dark":{"editor":"boolean","default":false},"$preview":{"width":390,"height":104}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const active = this.props.active ?? 'inicio';
+    const t = dark
+      ? { bar: '#141C19', line: '#26322E', ink: '#ECF3F0', ink2: '#A2B3AC', ring: '#0E1412' }
+      : { bar: '#FFFFFF', line: '#E4EAE7', ink: '#14201B', ink2: '#56665F', ring: '#F5F7F6' };
+    const keys = ['inicio', 'productos', 'precios', 'perfil'];
+    const c = {}, w = {}, cur = {};
+    keys.forEach(function (k) {
+      c[k] = k === active ? t.ink : t.ink2;
+      w[k] = k === active ? 800 : 500;
+      cur[k] = k === active ? 'page' : 'false';
+    });
+    return { t: t, c: c, w: w, cur: cur };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Detalle del ticket</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes tqUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes tqGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tqFade{from{opacity:0;max-height:0}to{opacity:1;max-height:20px}}
+.tq-in{animation:tqUp .5s cubic-bezier(.2,.7,.2,1) both}
+.tq-grow{transform-origin:left center;animation:tqGrow .9s .2s cubic-bezier(.2,.7,.2,1) both}
+.tq-raw{animation:tqFade .3s ease both;overflow:hidden}
+.tq-track{transition:background .25s ease}
+.tq-knob{transition:transform .25s cubic-bezier(.3,.8,.3,1.2)}
+.tq-icon{transition:background .2s ease, transform .15s ease}
+.tq-icon:hover{background:#EEF3F0}
+.tq-icon:active{transform:scale(.92)}
+.tq-btn{transition:transform .15s ease}
+.tq-btn:active{transform:scale(.97)}
+</style>
+</helmet>
+<div style="width: 390px; height: 1900px; position: relative; overflow: hidden; background: #F5F7F6; color: #14201B; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-numeric: tabular-nums">
+<main style="padding: 52px 20px 140px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+
+<header style="display: flex; align-items: center; justify-content: space-between">
+<a href="Tickets.dc.html" aria-label="Volver a tus tickets" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E4EAE7; color: #14201B; display: flex; align-items: center; justify-content: center; box-sizing: border-box">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+</a>
+<span style="font-size: 16px; font-weight: 700">Detalle del ticket</span>
+<button aria-label="Más opciones" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E4EAE7; color: #14201B; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+</button>
+</header>
+
+<section class="tq-in" style="background: #FFFFFF; border-radius: 26px; padding: 20px; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.07); display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 48px; height: 48px; border-radius: 16px; background: #DDF5EA; color: #0B7A57; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; flex: none">M</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 18px; font-weight: 800">Mercadona</span>
+<span style="font-size: 13px; color: #56665F">C/ Alcalá 214, Madrid</span>
+</span>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 14px; border-top: 1px solid #E4EAE7">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; font-weight: 600; color: #56665F">Fecha de compra</span>
+<span style="font-size: 15px; font-weight: 700">Sáb 14 nov 2026 · 18:42</span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 2px; align-items: flex-end">
+<span style="font-size: 12px; font-weight: 600; color: #56665F">Total</span>
+<span style="font-size: 32px; font-weight: 800; letter-spacing: -1px; line-height: 1">42,15 €</span>
+</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<span style="font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 99px; background: #EEF3F0; color: #3E4C46">12 productos</span>
+<span style="font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 99px; background: #EEF3F0; color: #3E4C46">Tarjeta</span>
+<span style="font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 99px; background: #EEF3F0; color: #3E4C46">Escaneado por ti · 18:51</span>
+</div>
+</section>
+
+<div class="tq-in" style="display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4EAE7; animation-delay: .05s">
+<span style="width: 36px; height: 36px; border-radius: 12px; background: #EEF3F0; color: #3E4C46; display: flex; align-items: center; justify-content: center; flex: none">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.5 5H19a1 1 0 0 1 1 1v8.5"/><path d="M20 19H5a1 1 0 0 1-1-1V6"/><path d="M4 16l4.5-4.5 3 3"/></svg>
+</span>
+<span style="font-size: 13px; line-height: 1.45; color: #3E4C46"><strong style="color: #14201B">La foto del ticket ya no existe.</strong> Se eliminó al confirmarlo. Aquí tienes los datos que extrajimos, y puedes corregirlos cuando quieras.</span>
+</div>
+
+<section class="tq-in" style="background: #FFFFFF; border-radius: 24px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.06); animation-delay: .1s">
+<h2 style="margin: 0; font-size: 16px; font-weight: 700">Por categoría</h2>
+<div role="img" aria-label="Frescos 42 %, Despensa 32 %, Limpieza 13 %, Bebidas 9 %, Higiene 4 %" style="display: flex; gap: 3px; height: 12px; margin-top: 14px">
+<span class="tq-grow" style="width: 42%; border-radius: 99px 4px 4px 99px; background: #34D399"></span>
+<span class="tq-grow" style="width: 32%; border-radius: 4px; background: #60A5FA"></span>
+<span class="tq-grow" style="width: 13%; border-radius: 4px; background: #A78BFA"></span>
+<span class="tq-grow" style="width: 9%; border-radius: 4px; background: #FBBF24"></span>
+<span class="tq-grow" style="width: 4%; border-radius: 4px 99px 99px 4px; background: #F9A8D4"></span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; margin-top: 14px; font-size: 13px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #34D399"></span><span style="flex: 1; font-weight: 600">Frescos</span><strong>17,72 €</strong></span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #60A5FA"></span><span style="flex: 1; font-weight: 600">Despensa</span><strong>13,43 €</strong></span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #A78BFA"></span><span style="flex: 1; font-weight: 600">Limpieza</span><strong>5,50 €</strong></span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #FBBF24"></span><span style="flex: 1; font-weight: 600">Bebidas</span><strong>3,90 €</strong></span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #F9A8D4"></span><span style="flex: 1; font-weight: 600">Higiene</span><strong>1,60 €</strong></span>
+</div>
+</section>
+
+<section class="tq-in" style="display: flex; flex-direction: column; gap: 10px; animation-delay: .15s">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 0 4px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 700">Productos</h2>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #56665F">
+Texto original
+<button role="switch" aria-checked="{{rawOn}}" aria-label="Mostrar el texto original de cada línea" onClick="{{toggleRaw}}" class="tq-track" style="width: 44px; height: 28px; border-radius: 99px; border: 0; padding: 3px; background: {{rawTrack}}; cursor: pointer; display: flex">
+<span class="tq-knob" style="width: 22px; height: 22px; border-radius: 99px; background: #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,.18); transform: {{rawKnob}}"></span>
+</button>
+</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 24px; padding: 4px 16px; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.06)">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="12">
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 0; box-shadow: {{l.divider}}">
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<sc-if value="{{showRaw}}" hint-placeholder-val="{{ false }}">
+<span class="tq-raw" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #56665F">{{l.raw}}</span>
+</sc-if>
+<span style="font-size: 14px; font-weight: 700; line-height: 1.3">{{l.name}}</span>
+<span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">
+<span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: {{l.catBg}}; color: {{l.catFg}}">{{l.cat}}</span>
+<span style="font-size: 12px; color: #56665F">{{l.qty}}</span>
+<sc-if value="{{l.edited}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 700; color: #7A4F00">· Corregido por ti</span></sc-if>
+</span>
+</span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none">
+<span style="font-size: 15px; font-weight: 800">{{l.price}}</span>
+<sc-if value="{{l.hasDelta}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 99px; background: {{l.deltaBg}}; color: {{l.deltaFg}}">{{l.delta}}</span></sc-if>
+</span>
+<button aria-label="{{l.editLabel}}" class="tq-icon" style="width: 36px; height: 36px; border-radius: 12px; border: 0; background: transparent; color: #56665F; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; flex: none">
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
+</button>
+</div>
+</sc-for>
+<div style="display: flex; justify-content: space-between; padding: 14px 0 12px; border-top: 1.5px dashed #D5DEDA; font-size: 15px">
+<span style="font-weight: 700">Total</span><span style="font-weight: 800">42,15 €</span>
+</div>
+</div>
+<p style="margin: 0 4px; font-size: 11px; color: #56665F">Las etiquetas comparan el precio con tu compra anterior del mismo producto.</p>
+</section>
+
+<div class="tq-in" style="display: flex; gap: 12px; align-items: center; padding: 16px; border-radius: 22px; background: #DDF5EA; color: #0B4F39; animation-delay: .2s">
+<span style="width: 40px; height: 40px; border-radius: 13px; background: #34D399; color: #073B27; display: flex; align-items: center; justify-content: center; flex: none">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M16.5 7.5c0-1.7-2-3-4.5-3S7.5 5.8 7.5 7.5 9.5 10.5 12 11s4.5 1.8 4.5 3.5-2 3-4.5 3-4.5-1.3-4.5-3"/></svg>
+</span>
+<span style="font-size: 14px; line-height: 1.4">Esta misma compra en Lidl habría costado <strong>unos 38,60 €</strong> (3,55 € menos).</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<button class="tq-btn" style="height: 52px; border-radius: 16px; border: 0; background: #14201B; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
+Editar súper, fecha o total
+</button>
+<button class="tq-btn" style="height: 48px; border-radius: 16px; border: 0; background: transparent; color: #B23F2A; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Eliminar ticket</button>
+</div>
+</main>
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" active="inicio" hint-size="390px,104px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { raw: false };
+  }
+  renderVals() {
+    const self = this;
+    const colors = {
+      Despensa: ['#E8F0FF', '#1D4ED8'], Frescos: ['#DDF5EA', '#0B7A57'], Bebidas: ['#FFF1D6', '#8A5A00'],
+      Limpieza: ['#EEE8FF', '#5B3FC4'], Higiene: ['#FDE7F3', '#9D2A6B']
+    };
+    const data = [
+      ['CAFE MOL NAT HCD 250', 'Café molido natural Hacendado 250 g', 'Despensa', '4,15 €', '1 ud', '+4 %'],
+      ['LECHE SEMI DES HCD 6X1L', 'Leche semidesnatada Hacendado 6 × 1 L', 'Frescos', '5,34 €', '1 pack', ''],
+      ['PLATANO CANARIAS', 'Plátano de Canarias', 'Frescos', '2,79 €', '1,120 kg × 2,49 €/kg', ''],
+      ['PECHUGA POLLO FIL', 'Pechuga de pollo fileteada', 'Frescos', '5,49 €', '0,674 kg × 8,15 €/kg', ''],
+      ['AOVE HCD 1L', 'Aceite de oliva virgen extra Hacendado 1 L', 'Despensa', '6,95 €', '1 ud', '−3 %'],
+      ['YOG GRG NT 6U', 'Yogur griego natural Hacendado 6 uds', 'Frescos', '1,95 €', '1 pack', '', true],
+      ['DETERG LIQ BOSQUE', 'Detergente líquido Bosque Verde 40 lavados', 'Limpieza', '5,50 €', '1 ud', '+2 %'],
+      ['PAN MOLDE INT 0%', 'Pan de molde integral Hacendado 0 %', 'Despensa', '1,45 €', '1 ud', ''],
+      ['CERV TOSTADA 6X33', 'Cerveza tostada 6 × 33 cl', 'Bebidas', '3,90 €', '1 pack', '+1 %'],
+      ['GEL DUCHA AVENA', 'Gel de ducha avena Deliplus 750 ml', 'Higiene', '1,60 €', '1 ud', ''],
+      ['TOMATE RAMA', 'Tomate en rama', 'Frescos', '2,15 €', '0,860 kg × 2,50 €/kg', ''],
+      ['SLS TOM FRT 4OO', 'Tomate frito Hacendado 400 g', 'Despensa', '0,88 €', '1 ud', 'Nuevo', true]
+    ];
+    const lines = data.map(function (d, i) {
+      const d0 = d[5].charAt(0);
+      return {
+        raw: d[0], name: d[1], cat: d[2], price: d[3], qty: d[4],
+        catBg: colors[d[2]][0], catFg: colors[d[2]][1],
+        hasDelta: !!d[5], delta: d[5],
+        deltaBg: d0 === '+' ? '#FFE8E1' : (d0 === '−' ? '#DDF5EA' : '#EEF3F0'),
+        deltaFg: d0 === '+' ? '#B23F2A' : (d0 === '−' ? '#0B7A57' : '#3E4C46'),
+        edited: !!d[6],
+        editLabel: 'Editar ' + d[1],
+        divider: i === data.length - 1 ? 'none' : 'inset 0 -1px 0 #EEF2F0'
+      };
+    });
+    const on = this.state.raw;
+    return {
+      lines: lines, showRaw: on,
+      rawOn: on ? 'true' : 'false',
+      rawTrack: on ? '#34D399' : '#D5DEDA',
+      rawKnob: on ? 'translateX(16px)' : 'translateX(0)',
+      toggleRaw: function () { self.setState({ raw: !self.state.raw }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

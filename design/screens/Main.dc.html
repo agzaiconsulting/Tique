@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Inicio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+@keyframes tqUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes tqGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tqBar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.tq-in{animation:tqUp .55s cubic-bezier(.2,.7,.2,1) both}
+.tq-d1{animation-delay:.06s}.tq-d2{animation-delay:.12s}.tq-d3{animation-delay:.18s}.tq-d4{animation-delay:.24s}.tq-d5{animation-delay:.3s}
+.tq-grow{transform-origin:left center;animation:tqGrow 1.1s .35s cubic-bezier(.2,.7,.2,1) both}
+.tq-bar{transform-origin:bottom center;animation:tqBar .7s cubic-bezier(.2,.7,.2,1) both}
+.tq-press{transition:transform .15s ease, box-shadow .2s ease}
+.tq-press:active{transform:scale(.98)}
+.tq-press:hover{transform:translateY(-1px)}
+</style>
+</helmet>
+<div style="width: 390px; height: 1640px; position: relative; overflow: hidden; background: {{t.bg}}; color: {{t.ink}}; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-numeric: tabular-nums">
+<main style="padding: 56px 20px 140px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+
+<header style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; font-weight: 600; color: {{t.ink2}}">Martes, 17 de noviembre</span>
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.6px">Hola, Lucía</h1>
+</div>
+<button aria-label="Notificaciones, 1 nueva" class="tq-press" style="width: 44px; height: 44px; border-radius: 14px; border: 1px solid {{t.line}}; background: {{t.card}}; color: {{t.ink}}; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; padding: 0">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>
+<span style="position: absolute; top: 10px; right: 11px; width: 8px; height: 8px; border-radius: 99px; background: #FF8A73; border: 2px solid {{t.card}}"></span>
+</button>
+</header>
+
+<section class="tq-in" style="background: {{t.card}}; border-radius: 28px; padding: 22px 20px 18px; box-shadow: {{t.shadow}}; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-size: 14px; font-weight: 600; color: {{t.ink2}}">Gasto de noviembre</span>
+<span style="font-size: 12px; font-weight: 600; color: {{t.ink2}}; background: {{t.chip}}; padding: 6px 10px; border-radius: 999px">1–17 nov</span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+<span style="font-size: 46px; font-weight: 800; letter-spacing: -1.8px; line-height: 1">312,40 €</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; font-size: 14px; font-weight: 700; color: {{t.mintText}}; background: {{t.mintSoft}}; padding: 6px 10px 6px 8px; border-radius: 999px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>−6 %</span>
+</div>
+<p style="margin: 0; font-size: 13px; color: {{t.ink2}}">19,95 € menos que en las mismas fechas de octubre</p>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 14px; margin-top: 2px; border-top: 1px solid {{t.line}}">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800; letter-spacing: -0.4px">14</span><span style="font-size: 12px; color: {{t.ink2}}">tickets</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800; letter-spacing: -0.4px">22,31 €</span><span style="font-size: 12px; color: {{t.ink2}}">ticket medio</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800; letter-spacing: -0.4px">Mercadona</span><span style="font-size: 12px; color: {{t.ink2}}">más usado · 8 veces</span></div>
+</div>
+</section>
+
+<section class="tq-in tq-d1" style="background: {{t.card}}; border-radius: 24px; padding: 20px; box-shadow: {{t.shadow}}">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">Gasto por categoría</h2>
+<a href="Productos.dc.html" style="font-size: 13px; font-weight: 700; color: {{t.mintText}}; text-decoration: none; padding: 8px 0">Ver detalle</a>
+</div>
+<div style="display: flex; align-items: center; gap: 18px; margin-top: 10px">
+<div style="position: relative; width: 132px; height: 132px; flex: none">
+<svg width="132" height="132" viewBox="0 0 140 140" role="img" aria-label="Gráfico de anillo: Frescos 33 %, Despensa 32 %, Bebidas 12 %, Limpieza 9 %, Higiene 7 %, Otros 7 %">
+<g transform="rotate(-90 70 70)" fill="none" stroke-width="18">
+<circle cx="70" cy="70" r="54" stroke="{{t.track}}"></circle>
+<circle cx="70" cy="70" r="54" stroke="#34D399" stroke-dasharray="109.47 339.29" stroke-dashoffset="0"></circle>
+<circle cx="70" cy="70" r="54" stroke="#60A5FA" stroke-dasharray="106.07 339.29" stroke-dashoffset="-111.97"></circle>
+<circle cx="70" cy="70" r="54" stroke="#FBBF24" stroke-dasharray="38.21 339.29" stroke-dashoffset="-220.54"></circle>
+<circle cx="70" cy="70" r="54" stroke="#A78BFA" stroke-dasharray="28.04 339.29" stroke-dashoffset="-261.25"></circle>
+<circle cx="70" cy="70" r="54" stroke="#F9A8D4" stroke-dasharray="21.25 339.29" stroke-dashoffset="-291.79"></circle>
+<circle cx="70" cy="70" r="54" stroke="#B8C4BF" stroke-dasharray="21.25 339.29" stroke-dashoffset="-315.54"></circle>
+</g>
+</svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px">
+<span style="font-size: 21px; font-weight: 800; letter-spacing: -0.5px">312 €</span>
+<span style="font-size: 11px; font-weight: 600; color: {{t.ink2}}">6 categorías</span>
+</div>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+<li style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #34D399; flex: none"></span><span style="flex: 1; font-weight: 600">Frescos</span><span style="font-weight: 700">104,20 €</span></li>
+<li style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #60A5FA; flex: none"></span><span style="flex: 1; font-weight: 600">Despensa</span><span style="font-weight: 700">98,60 €</span></li>
+<li style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #FBBF24; flex: none"></span><span style="flex: 1; font-weight: 600">Bebidas</span><span style="font-weight: 700">38,90 €</span></li>
+<li style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #A78BFA; flex: none"></span><span style="flex: 1; font-weight: 600">Limpieza</span><span style="font-weight: 700">27,40 €</span></li>
+<li style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #F9A8D4; flex: none"></span><span style="flex: 1; font-weight: 600">Higiene</span><span style="font-weight: 700">21,80 €</span></li>
+<li style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #B8C4BF; flex: none"></span><span style="flex: 1; font-weight: 600">Otros</span><span style="font-weight: 700">21,50 €</span></li>
+</ul>
+</div>
+</section>
+
+<section class="tq-in tq-d2" style="background: {{t.card}}; border-radius: 24px; padding: 20px; box-shadow: {{t.shadow}}">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 6px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">Tu IPC personal</h2>
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{t.ink2}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
+</div>
+<span style="font-size: 13px; color: {{t.ink2}}">Tu cesta habitual · desde enero</span>
+</div>
+<span style="font-size: 32px; font-weight: 800; letter-spacing: -1px; color: {{t.coralText}}; line-height: 1">+4,8 %</span>
+</div>
+<div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 6px; height: 56px; margin-top: 16px">
+<span class="tq-bar" style="flex: 1; height: 6px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 12px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 17px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 24px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 27px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 33px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 36px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 41px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 44px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 49px; border-radius: 5px 5px 3px 3px; background: {{t.coralBar}}"></span>
+<span class="tq-bar" style="flex: 1; height: 52px; border-radius: 5px 5px 3px 3px; background: #FF8A73"></span>
+</div>
+<div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: {{t.ink2}}; margin-top: 6px"><span>Ene</span><span>Nov</span></div>
+<p style="margin: 12px 0 0; font-size: 13px; line-height: 1.45; color: {{t.ink2}}">La compra que en enero te costaba 51,72 € hoy te cuesta <strong style="color: {{t.ink}}">54,20 €</strong>.</p>
+</section>
+
+<a href="Producto.dc.html" class="tq-in tq-d3 tq-press" style="display: flex; gap: 14px; align-items: center; text-decoration: none; color: {{t.ink}}; background: {{t.coralSoft}}; border-radius: 24px; padding: 16px">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: #FF8A73; color: #4A140A; display: flex; align-items: center; justify-content: center; flex: none">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 3px">
+<span style="font-size: 11px; font-weight: 800; color: {{t.coralText}}; text-transform: uppercase; letter-spacing: 0.7px">Alerta de precio</span>
+<span style="font-size: 15px; font-weight: 700; line-height: 1.3">El café molido Hacendado ha subido un 22 % desde enero</span>
+<span style="font-size: 13px; color: {{t.ink2}}">3,40 € → 4,15 € · En Lidl está a 3,79 €</span>
+</span>
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none"><path d="M9 6l6 6-6 6"/></svg>
+</a>
+
+<section class="tq-in tq-d4" style="background: {{t.card}}; border-radius: 24px; padding: 20px; box-shadow: {{t.shadow}}">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">Presupuesto mensual</h2>
+<span style="font-size: 13px; color: {{t.ink2}}"><strong style="color: {{t.ink}}; font-size: 16px; font-weight: 800">312 €</strong> de 400 €</span>
+</div>
+<div role="progressbar" aria-label="Presupuesto usado" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="height: 12px; border-radius: 99px; background: {{t.track}}; margin-top: 14px; overflow: hidden">
+<div class="tq-grow" style="width: 78%; height: 100%; border-radius: 99px; background: #34D399"></div>
+</div>
+<div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px">
+<span style="font-weight: 700">78 % usado</span>
+<span style="color: {{t.ink2}}">Quedan 87,60 € · 13 días</span>
+</div>
+<p style="margin: 8px 0 0; font-size: 13px; color: {{t.mintText}}; font-weight: 600">Vas bien: puedes gastar unos 6,74 € al día</p>
+</section>
+
+<section class="tq-in tq-d5" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 4px 0">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">Últimos tickets</h2>
+<a href="Tickets.dc.html" style="font-size: 13px; font-weight: 700; color: {{t.mintText}}; text-decoration: none; padding: 8px 0">Ver todos</a>
+</div>
+<div style="background: {{t.card}}; border-radius: 24px; padding: 4px 16px; box-shadow: {{t.shadow}}">
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid {{t.line}}">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: rgba(52,211,153,0.18); color: {{t.mintText}}; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; flex: none">M</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Mercadona</span><span style="font-size: 12px; color: {{t.ink2}}">Sáb 14 nov · 12 productos</span></span>
+<span style="font-size: 16px; font-weight: 800">42,15 €</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid {{t.line}}">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: rgba(96,165,250,0.2); color: {{t.blueText}}; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; flex: none">L</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Lidl</span><span style="font-size: 12px; color: {{t.ink2}}">Vie 13 nov · 9 productos</span></span>
+<span style="font-size: 16px; font-weight: 800">32,10 €</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid {{t.line}}">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: rgba(52,211,153,0.18); color: {{t.mintText}}; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; flex: none">M</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Mercadona</span><span style="font-size: 12px; color: {{t.ink2}}">Mié 11 nov · 17 productos</span></span>
+<span style="font-size: 16px; font-weight: 800">58,40 €</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: rgba(251,191,36,0.22); color: {{t.amberText}}; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; flex: none">D</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Día</span><span style="font-size: 12px; color: {{t.ink2}}">Lun 9 nov · 9 productos</span></span>
+<span style="font-size: 16px; font-weight: 800">25,90 €</span>
+</div>
+</div>
+</section>
+
+</main>
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" active="inicio" dark="{{dark}}" hint-size="390px,104px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":390,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const L = { bg: '#F5F7F6', card: '#FFFFFF', ink: '#14201B', ink2: '#56665F', line: '#E4EAE7', track: '#EDF2EF', chip: '#EEF3F0', mintSoft: '#DDF5EA', mintText: '#0B7A57', coralSoft: '#FFE8E1', coralText: '#B23F2A', coralBar: '#FFC9BC', blueText: '#1D4ED8', amberText: '#8A5A00', shadow: '0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.07)' };
+    const D = { bg: '#0E1412', card: '#18211E', ink: '#ECF3F0', ink2: '#A2B3AC', line: '#26322E', track: '#24302C', chip: '#212C28', mintSoft: '#123A2B', mintText: '#5EE3AA', coralSoft: '#3B211A', coralText: '#FF9F8A', coralBar: '#6B3528', blueText: '#93C5FD', amberText: '#FCD34D', shadow: '0 1px 0 rgba(255,255,255,.03), 0 10px 28px rgba(0,0,0,.25)' };
+    return { dark: dark, t: dark ? D : L };
+  }
+}
+</script>
+</body>
+</html>

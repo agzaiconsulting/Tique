@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Productos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes tqUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes tqDraw{from{stroke-dashoffset:120}to{stroke-dashoffset:0}}
+.tq-row{animation:tqUp .45s cubic-bezier(.2,.7,.2,1) both;transition:background .2s ease}
+.tq-row:hover{background:#F7FAF8}
+.tq-spark{stroke-dasharray:120;animation:tqDraw 1s .2s cubic-bezier(.2,.7,.2,1) both}
+.tq-chip{transition:background .2s ease, color .2s ease, transform .15s ease}
+.tq-chip:active{transform:scale(.94)}
+.tq-search:focus{outline:2px solid #34D399;outline-offset:2px}
+.tq-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tq-chips::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="width: 390px; height: 1240px; position: relative; overflow: hidden; background: #F5F7F6; color: #14201B; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-numeric: tabular-nums">
+<main style="padding: 56px 0 140px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box">
+
+<header style="padding: 0 20px; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.8px">Productos</h1>
+<span style="font-size: 13px; color: #56665F">148 productos en tu historial</span>
+</div>
+<button aria-label="Ordenar y filtrar" style="width: 44px; height: 44px; border-radius: 14px; border: 1px solid #E4EAE7; background: #FFFFFF; color: #14201B; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
+</button>
+</header>
+
+<div style="padding: 0 20px; position: relative">
+<label for="tq-buscar" class="tq-sr">Buscar producto</label>
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56665F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 36px; top: 15px"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+<input id="tq-buscar" class="tq-search" type="search" placeholder="Buscar producto o marca" style="width: 100%; height: 50px; border-radius: 16px; border: 1px solid #E4EAE7; background: #FFFFFF; padding: 0 16px 0 48px; box-sizing: border-box; font-family: inherit; font-size: 15px; color: #14201B">
+</div>
+
+<div class="tq-chips" role="tablist" aria-label="Categorías" style="display: flex; gap: 8px; overflow-x: auto; padding: 2px 20px; scrollbar-width: none">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="7">
+<button role="tab" aria-selected="{{c.sel}}" class="tq-chip" onClick="{{c.pick}}" style="flex: none; height: 38px; padding: 0 16px; border-radius: 99px; border: 1px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap">{{c.label}}</button>
+</sc-for>
+</div>
+
+<div style="padding: 4px 24px 0; display: flex; justify-content: space-between; align-items: center; font-size: 13px">
+<span style="color: #56665F">{{countLabel}}</span>
+<button style="display: inline-flex; align-items: center; gap: 4px; height: 36px; border: 0; background: transparent; font-family: inherit; font-size: 13px; font-weight: 700; color: #14201B; cursor: pointer; padding: 0">Más comprados
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+</div>
+
+<section style="margin: 0 20px; background: #FFFFFF; border-radius: 24px; padding: 4px 0; box-shadow: 0 1px 2px rgba(20,48,36,.04), 0 10px 28px rgba(20,48,36,.06)">
+<sc-for list="{{items}}" as="p" hint-placeholder-count="8">
+<a href="Producto.dc.html" class="tq-row" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; text-decoration: none; color: #14201B; box-shadow: {{p.divider}}; animation-delay: {{p.delay}}">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: {{p.tileBg}}; color: {{p.tileFg}}; display: flex; align-items: center; justify-content: center; flex: none">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{p.icon}}"></path></svg>
+</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+<span style="font-size: 14px; font-weight: 700; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}</span>
+<span style="font-size: 12px; color: #56665F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.meta}}</span>
+</span>
+<svg aria-hidden="true" width="56" height="26" viewBox="0 0 56 26" style="flex: none"><polyline class="tq-spark" points="{{p.points}}" fill="none" stroke="{{p.stroke}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; width: 70px">
+<span style="font-size: 15px; font-weight: 800">{{p.price}}</span>
+<span style="font-size: 11px; font-weight: 800; padding: 3px 7px; border-radius: 99px; background: {{p.deltaBg}}; color: {{p.deltaFg}}">{{p.delta}}</span>
+</span>
+</a>
+</sc-for>
+</section>
+</main>
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" active="productos" hint-size="390px,104px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cat: 'Todos' };
+  }
+  renderVals() {
+    const self = this;
+    const tint = {
+      Despensa: ['#E8F0FF', '#1D4ED8'], Frescos: ['#DDF5EA', '#0B7A57'], Bebidas: ['#FFF1D6', '#8A5A00'],
+      Limpieza: ['#EEE8FF', '#5B3FC4'], Higiene: ['#FDE7F3', '#9D2A6B'], Otros: ['#EEF3F0', '#3E4C46']
+    };
+    const icons = {
+      Despensa: 'M8 3h8M7 6h10v13a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2zM7 11h10',
+      Frescos: 'M12 7.5c-3-2-8-1-8 4.5s4 9 6 9c1 0 1.5-.5 2-.5s1 .5 2 .5c2 0 6-3.5 6-9s-5-6.5-8-4.5zM12 7.5c0-2 1-4 3-4.5',
+      Bebidas: 'M10 3h4v4l2 3v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10l2-3zM8 13h8',
+      Limpieza: 'M9 8h6v12a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM10 8V5h4l3-2M10 5H8',
+      Higiene: 'M12 3c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z',
+      Otros: 'M4 7h16v13H4zM9 7V4h6v3'
+    };
+    const data = [
+      ['Café molido natural Hacendado 250 g', 'Despensa', '4,15 €', 'Mercadona · 9 compras', [3.40, 3.40, 3.55, 3.70, 3.85, 3.99, 4.15, 4.15], '+22 %'],
+      ['Leche semidesnatada Hacendado 6 × 1 L', 'Frescos', '5,34 €', 'Mercadona · 14 compras', [5.19, 5.19, 5.22, 5.22, 5.28, 5.28, 5.34, 5.34], '+3 %'],
+      ['Aceite de oliva virgen extra 1 L', 'Despensa', '6,95 €', 'Mercadona · 5 compras', [8.49, 8.20, 7.95, 7.60, 7.35, 7.15, 6.95, 6.95], '−18 %'],
+      ['Plátano de Canarias', 'Frescos', '2,49 €/kg', 'Lidl · 11 compras', [2.35, 2.29, 2.39, 2.45, 2.39, 2.45, 2.49, 2.49], '+6 %'],
+      ['Huevos camperos L, 12 uds', 'Frescos', '3,29 €', 'Lidl · 7 compras', [3.02, 3.02, 3.09, 3.15, 3.15, 3.22, 3.29, 3.29], '+9 %'],
+      ['Yogur griego natural 6 uds', 'Frescos', '1,95 €', 'Mercadona · 10 compras', [1.95, 1.95, 1.95, 1.95, 1.95, 1.95, 1.95, 1.95], '0 %'],
+      ['Pechuga de pollo fileteada', 'Frescos', '8,15 €/kg', 'Carrefour · 6 compras', [8.49, 8.49, 8.39, 8.29, 8.29, 8.15, 8.15, 8.15], '−4 %'],
+      ['Detergente líquido Bosque Verde 40 lav.', 'Limpieza', '5,50 €', 'Mercadona · 3 compras', [5.25, 5.25, 5.25, 5.40, 5.40, 5.50, 5.50, 5.50], '+5 %'],
+      ['Cerveza tostada 6 × 33 cl', 'Bebidas', '3,90 €', 'Mercadona · 4 compras', [3.75, 3.75, 3.75, 3.85, 3.85, 3.90, 3.90, 3.90], '+4 %'],
+      ['Gel de ducha avena Deliplus 750 ml', 'Higiene', '1,60 €', 'Mercadona · 2 compras', [1.60, 1.60, 1.60, 1.60, 1.60, 1.60, 1.60, 1.60], '0 %']
+    ];
+    function spark(v) {
+      const min = Math.min.apply(null, v), max = Math.max.apply(null, v);
+      const span = max - min || 1;
+      return v.map(function (y, i) {
+        const px = 2 + i * (52 / (v.length - 1));
+        const py = max === min ? 13 : 22 - ((y - min) / span) * 18;
+        return px.toFixed(1) + ',' + py.toFixed(1);
+      }).join(' ');
+    }
+    const cat = this.state.cat;
+    const filtered = data.filter(function (d) { return cat === 'Todos' || d[1] === cat; });
+    const items = filtered.map(function (d, i) {
+      const up = d[5].charAt(0) === '+';
+      const down = d[5].charAt(0) === '−';
+      return {
+        name: d[0], price: d[2], meta: d[3], delta: d[5],
+        icon: icons[d[1]], tileBg: tint[d[1]][0], tileFg: tint[d[1]][1],
+        points: spark(d[4]),
+        stroke: up ? '#F0705A' : (down ? '#10B981' : '#A9B6B0'),
+        deltaBg: up ? '#FFE8E1' : (down ? '#DDF5EA' : '#EEF3F0'),
+        deltaFg: up ? '#B23F2A' : (down ? '#0B7A57' : '#3E4C46'),
+        divider: i === filtered.length - 1 ? 'none' : 'inset 0 -1px 0 #EEF2F0',
+        delay: (i * 0.04).toFixed(2) + 's'
+      };
+    });
+    const chips = ['Todos', 'Despensa', 'Frescos', 'Bebidas', 'Limpieza', 'Higiene', 'Otros'].map(function (c) {
+      const sel = c === cat;
+      return {
+        label: c, sel: sel ? 'true' : 'false',
+        bg: sel ? '#14201B' : '#FFFFFF', fg: sel ? '#FFFFFF' : '#14201B', border: sel ? '#14201B' : '#E4EAE7',
+        pick: function () { self.setState({ cat: c }); }
+      };
+    });
+    const n = items.length;
+    return { items: items, chips: chips, countLabel: n === 1 ? '1 producto' : n + ' productos habituales' };
+  }
+}
+</script>
+</body>
+</html>

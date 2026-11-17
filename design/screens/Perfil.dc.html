@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tique · Perfil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.tq-plan{transition:box-shadow .25s ease, background .25s ease, transform .15s ease}
+.tq-plan:active{transform:scale(.98)}
+.tq-track{transition:background .25s ease}
+.tq-knob{transition:transform .25s cubic-bezier(.3,.8,.3,1.2)}
+.tq-row{transition:background .2s ease}
+.tq-row:hover{background:#F7FAF8}
+</style>
+</helmet>
+<div style="width: 390px; height: 1560px; position: relative; overflow: hidden; background: #F5F7F6; color: #14201B; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-numeric: tabular-nums">
+<main style="padding: 56px 20px 140px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+
+<header style="display: flex; align-items: center; gap: 14px">
+<span style="width: 60px; height: 60px; border-radius: 20px; background: #DDF5EA; color: #0B7A57; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center">LM</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px">Lucía Martín</h1>
+<span style="font-size: 13px; color: #56665F">lucia.martin@correo.es</span>
+</span>
+<button aria-label="Ajustes" style="width: 44px; height: 44px; border-radius: 14px; border: 1px solid #E4EAE7; background: #FFFFFF; color: #14201B; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+</button>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; padding: 0 4px; font-size: 13px; font-weight: 800; color: #56665F; text-transform: uppercase; letter-spacing: 0.7px">Tu plan</h2>
+<div role="radiogroup" aria-label="Plan" style="display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{plans}}" as="p" hint-placeholder-count="3">
+<button role="radio" aria-checked="{{p.sel}}" class="tq-plan" onClick="{{p.pick}}" style="display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 22px; border: 0; background: {{p.bg}}; box-shadow: {{p.ring}}; font-family: inherit; color: #14201B; text-align: left; cursor: pointer">
+<span style="width: 22px; height: 22px; border-radius: 99px; box-shadow: {{p.radio}}; background: #FFFFFF; flex: none"></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 3px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="font-size: 16px; font-weight: 800">{{p.name}}</span>
+<sc-if value="{{p.current}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 99px; background: #14201B; color: #FFFFFF">Tu plan</span></sc-if></span>
+<span style="font-size: 13px; line-height: 1.35; color: #56665F">{{p.desc}}</span>
+</span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; flex: none">
+<span style="font-size: 18px; font-weight: 800">{{p.price}}</span>
+<span style="font-size: 11px; color: #56665F">{{p.per}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 4px">
+<h2 style="margin: 0; font-size: 13px; font-weight: 800; color: #56665F; text-transform: uppercase; letter-spacing: 0.7px">Miembros del plan</h2>
+<span style="font-size: 12px; color: #56665F">2 de 4</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 22px; padding: 4px 16px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; box-shadow: inset 0 -1px 0 #EEF2F0">
+<span style="width: 40px; height: 40px; border-radius: 13px; background: #DDF5EA; color: #0B7A57; font-weight: 800; display: flex; align-items: center; justify-content: center">LM</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Lucía (tú)</span><span style="font-size: 12px; color: #56665F">Administradora · 9 tickets este mes</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; box-shadow: inset 0 -1px 0 #EEF2F0">
+<span style="width: 40px; height: 40px; border-radius: 13px; background: #E8F0FF; color: #1D4ED8; font-weight: 800; display: flex; align-items: center; justify-content: center">JR</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Javi</span><span style="font-size: 12px; color: #56665F">Miembro · 5 tickets este mes</span></span>
+</div>
+<button class="tq-row" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0; border: 0; background: transparent; font-family: inherit; color: #0B7A57; font-size: 15px; font-weight: 700; cursor: pointer; text-align: left">
+<span style="width: 40px; height: 40px; border-radius: 13px; border: 1.5px dashed #9FD9BF; display: flex; align-items: center; justify-content: center; box-sizing: border-box"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+Invitar a alguien de casa
+</button>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; padding: 0 4px; font-size: 13px; font-weight: 800; color: #56665F; text-transform: uppercase; letter-spacing: 0.7px">Presupuesto</h2>
+<div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; align-items: center; gap: 12px">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Presupuesto mensual</span><span style="font-size: 12px; color: #56665F">Compartido entre los miembros</span></span>
+<button aria-label="Editar presupuesto mensual, 400 euros" style="height: 40px; padding: 0 14px; border-radius: 12px; border: 0; background: #EEF3F0; color: #14201B; font-family: inherit; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer">400 €
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>
+</button>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; padding: 0 4px; font-size: 13px; font-weight: 800; color: #56665F; text-transform: uppercase; letter-spacing: 0.7px">Alertas</h2>
+<div style="background: #FFFFFF; border-radius: 22px; padding: 4px 16px">
+<sc-for list="{{alerts}}" as="a" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 13px 0; box-shadow: {{a.divider}}">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">{{a.title}}</span><span style="font-size: 12px; color: #56665F">{{a.desc}}</span></span>
+<button role="switch" aria-checked="{{a.on}}" aria-label="{{a.title}}" onClick="{{a.toggle}}" class="tq-track" style="width: 52px; height: 32px; border-radius: 99px; border: 0; padding: 3px; background: {{a.track}}; cursor: pointer; flex: none; display: flex">
+<span class="tq-knob" style="width: 26px; height: 26px; border-radius: 99px; background: #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,.18); transform: {{a.knob}}"></span>
+</button>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; padding: 0 4px; font-size: 13px; font-weight: 800; color: #56665F; text-transform: uppercase; letter-spacing: 0.7px">Tus datos</h2>
+<div style="background: #FFFFFF; border-radius: 22px; padding: 4px 16px">
+<button class="tq-row" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 13px 0; border: 0; background: transparent; font-family: inherit; color: #14201B; cursor: pointer; text-align: left; box-shadow: inset 0 -1px 0 #EEF2F0">
+<span style="width: 36px; height: 36px; border-radius: 12px; background: #EEF3F0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M4 17v1.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V17"/></svg></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Exportar datos</span><span style="font-size: 12px; color: #56665F">Excel o CSV con todos tus tickets</span></span>
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#56665F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<div style="display: flex; align-items: center; gap: 12px; padding: 13px 0">
+<span style="width: 36px; height: 36px; border-radius: 12px; background: #DDF5EA; color: #0B7A57; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Privacidad</span><span style="font-size: 12px; color: #56665F">Las fotos de tus tickets no se guardan</span></span>
+</div>
+</div>
+</section>
+
+<button style="height: 48px; border-radius: 16px; border: 0; background: transparent; color: #B23F2A; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Cerrar sesión</button>
+</main>
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" active="perfil" hint-size="390px,104px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1560}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { plan: 'compartido', alerts: { subidas: true, presupuesto: true, semanal: false } };
+  }
+  renderVals() {
+    const self = this;
+    const defs = [
+      { id: 'gratis', name: 'Gratis', desc: '8 tickets al mes y 3 meses de historial', price: '0 €', per: 'siempre' },
+      { id: 'premium', name: 'Premium', desc: 'Tickets ilimitados, comparador y alertas de precio', price: '4,99 €', per: 'al mes' },
+      { id: 'compartido', name: 'Compartido', desc: 'Todo Premium para hasta 4 personas de casa, con gasto común', price: '7 €', per: 'al mes' }
+    ];
+    const plans = defs.map(function (d) {
+      const sel = d.id === self.state.plan;
+      return Object.assign({}, d, {
+        sel: sel ? 'true' : 'false',
+        current: d.id === 'compartido',
+        bg: sel ? '#F0FBF6' : '#FFFFFF',
+        ring: sel ? 'inset 0 0 0 2px #34D399, 0 8px 22px rgba(16,160,110,.12)' : 'inset 0 0 0 1px #E4EAE7',
+        radio: sel ? 'inset 0 0 0 7px #10B981' : 'inset 0 0 0 2px #C3CEC9',
+        pick: function () { self.setState({ plan: d.id }); }
+      });
+    });
+    const adefs = [
+      { id: 'subidas', title: 'Subidas de precio', desc: 'Si algo que compras sube más de un 10 %' },
+      { id: 'presupuesto', title: 'Aviso de presupuesto', desc: 'Al llegar al 80 % del mes' },
+      { id: 'semanal', title: 'Resumen semanal', desc: 'Cada lunes, tu gasto de la semana' }
+    ];
+    const alerts = adefs.map(function (a, i) {
+      const on = !!self.state.alerts[a.id];
+      return Object.assign({}, a, {
+        on: on ? 'true' : 'false',
+        track: on ? '#34D399' : '#D5DEDA',
+        knob: on ? 'translateX(20px)' : 'translateX(0)',
+        divider: i === adefs.length - 1 ? 'none' : 'inset 0 -1px 0 #EEF2F0',
+        toggle: function () {
+          const next = Object.assign({}, self.state.alerts);
+          next[a.id] = !next[a.id];
+          self.setState({ alerts: next });
+        }
+      });
+    });
+    return { plans: plans, alerts: alerts };
+  }
+}
+</script>
+</body>
+</html>
