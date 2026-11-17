@@ -83,24 +83,24 @@ function LineaItem({
   }
 
   return (
-    <li className="flex gap-3 py-3 border-b border-linea/60 last:border-0">
+    <li className="flex gap-3 py-3 border-b border-tq-line last:border-0">
       {/* Indicador de estado */}
       <div className="mt-0.5 shrink-0">
         {linea.estado === 'auto' || linea.estado === 'confirmada' ? (
-          <span aria-label="Identificado" className="flex h-5 w-5 items-center justify-center rounded-full bg-verde/15">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3 w-3 text-verde">
+          <span aria-label="Identificado" className="flex h-5 w-5 items-center justify-center rounded-full bg-tq-mint-soft">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3 w-3 text-tq-mint-text">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </span>
         ) : linea.estado === 'sugerida' ? (
-          <span aria-label="Por confirmar" className="flex h-5 w-5 items-center justify-center rounded-full bg-laton/15">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3 w-3 text-laton">
+          <span aria-label="Por confirmar" className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3 w-3 text-amber-500">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
             </svg>
           </span>
         ) : (
-          <span aria-label="Sin identificar" className="flex h-5 w-5 items-center justify-center rounded-full bg-tinta/8">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3 w-3 text-tinta/40">
+          <span aria-label="Sin identificar" className="flex h-5 w-5 items-center justify-center rounded-full bg-tq-chip">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3 w-3 text-tq-ink2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
             </svg>
           </span>
@@ -111,11 +111,11 @@ function LineaItem({
       <div className="flex-1 min-w-0">
         {nombre ? (
           <>
-            <p className="text-sm text-tinta leading-snug">{nombre}</p>
-            <p className="text-xs text-tinta/40 mt-0.5 truncate">{linea.texto_original}</p>
+            <p className="text-sm text-tq-ink leading-snug">{nombre}</p>
+            <p className="text-xs text-tq-ink2 mt-0.5 truncate">{linea.texto_original}</p>
           </>
         ) : (
-          <p className="text-sm text-tinta/60 leading-snug">{linea.texto_original}</p>
+          <p className="text-sm text-tq-ink2 leading-snug">{linea.texto_original}</p>
         )}
 
         {/* Botones para sugeridas */}
@@ -123,13 +123,13 @@ function LineaItem({
           <div className="flex gap-2 mt-1.5">
             <button
               onClick={() => onConfirmar(linea.id)}
-              className="rounded-md border border-verde/30 bg-verde/8 px-2 py-0.5 text-xs font-medium text-verde hover:bg-verde/15 transition-colors"
+              className="rounded-md border border-tq-line bg-tq-mint-soft px-2 py-0.5 text-xs font-medium text-tq-mint-text hover:opacity-80 transition-opacity"
             >
               Confirmar
             </button>
             <button
               onClick={() => setCorrigiendo(true)}
-              className="rounded-md border border-linea px-2 py-0.5 text-xs font-medium text-tinta/50 hover:border-tinta/30 transition-colors"
+              className="rounded-md border border-tq-line px-2 py-0.5 text-xs font-medium text-tq-ink2 hover:text-tq-ink transition-colors"
             >
               No es correcto
             </button>
@@ -149,19 +149,19 @@ function LineaItem({
                 if (e.key === 'Escape') { setCorrigiendo(false); setTexto(''); }
               }}
               placeholder="¿Qué es este producto?"
-              className="w-full rounded-md border border-linea bg-white/60 px-2.5 py-1.5 text-xs text-tinta placeholder:text-tinta/30 focus:border-verde focus:outline-none focus:ring-1 focus:ring-verde"
+              className="w-full rounded-md border border-tq-line bg-tq-card px-2.5 py-1.5 text-xs text-tq-ink placeholder:text-tq-ink2 focus:border-tq-mint focus:outline-none focus:ring-1 focus:ring-tq-mint"
             />
             <div className="flex gap-2">
               <button
                 onClick={handleEnviarCorreccion}
                 disabled={!texto.trim()}
-                className="rounded-md border border-verde/30 bg-verde/8 px-2 py-0.5 text-xs font-medium text-verde hover:bg-verde/15 transition-colors disabled:opacity-40"
+                className="rounded-md border border-tq-line bg-tq-mint-soft px-2 py-0.5 text-xs font-medium text-tq-mint-text hover:opacity-80 transition-opacity disabled:opacity-40"
               >
                 Enviar
               </button>
               <button
                 onClick={() => { setCorrigiendo(false); setTexto(''); }}
-                className="rounded-md border border-linea px-2 py-0.5 text-xs font-medium text-tinta/50 hover:border-tinta/30 transition-colors"
+                className="rounded-md border border-tq-line px-2 py-0.5 text-xs font-medium text-tq-ink2 hover:text-tq-ink transition-colors"
               >
                 Cancelar
               </button>
@@ -172,11 +172,11 @@ function LineaItem({
 
       {/* Precio */}
       <div className="shrink-0 text-right">
-        <span className="font-mono text-sm font-medium text-tinta">
+        <span className="font-mono text-sm font-medium text-tq-ink">
           {fmtEuros(linea.precio)}
         </span>
         {linea.kg != null && linea.eurkg != null && (
-          <p className="text-xs text-tinta/40 mt-0.5">
+          <p className="text-xs text-tq-ink2 mt-0.5">
             {linea.kg.toLocaleString('es-ES', { minimumFractionDigits: 3 })} kg
           </p>
         )}
@@ -201,24 +201,24 @@ export default function ReviewClient({
   // ---------------------------------------------------------------- estados especiales
   if (ticket.estado === 'procesando') {
     return (
-      <main className="min-h-screen">
-        <div className="sticky top-0 z-10 border-b border-linea bg-papel/90 backdrop-blur-sm px-4 py-3">
+      <main className="min-h-screen bg-tq-bg font-jakarta">
+        <div className="sticky top-0 z-10 border-b border-tq-line bg-tq-bg/90 backdrop-blur-sm px-4 py-3">
           <div className="max-w-lg mx-auto flex items-center gap-3">
-            <Link href="/tickets" className="text-tinta/50 hover:text-tinta transition-colors" aria-label="Volver a mis tickets">
+            <Link href="/tickets" className="text-tq-ink2 hover:text-tq-ink transition-colors" aria-label="Volver a mis tickets">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </Link>
-            <p className="font-medium text-tinta text-sm">{ticket.cadena ?? 'Ticket'}</p>
+            <p className="font-medium text-tq-ink text-sm">{ticket.cadena ?? 'Ticket'}</p>
           </div>
         </div>
         <div role="status" className="flex flex-col items-center justify-center py-24 px-4 text-center">
-          <svg aria-hidden="true" className="h-8 w-8 animate-spin text-verde mb-4" viewBox="0 0 24 24" fill="none">
+          <svg aria-hidden="true" className="h-8 w-8 animate-spin text-tq-mint mb-4" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <p className="text-sm font-medium text-tinta">Analizando ticket…</p>
-          <p className="text-xs text-tinta/40 mt-1">Puedes cerrar esta pantalla, el análisis continuará.</p>
+          <p className="text-sm font-medium text-tq-ink">Analizando ticket…</p>
+          <p className="text-xs text-tq-ink2 mt-1">Puedes cerrar esta pantalla, el análisis continuará.</p>
         </div>
       </main>
     );
@@ -226,26 +226,26 @@ export default function ReviewClient({
 
   if (ticket.estado === 'error') {
     return (
-      <main className="min-h-screen">
-        <div className="sticky top-0 z-10 border-b border-linea bg-papel/90 backdrop-blur-sm px-4 py-3">
+      <main className="min-h-screen bg-tq-bg font-jakarta">
+        <div className="sticky top-0 z-10 border-b border-tq-line bg-tq-bg/90 backdrop-blur-sm px-4 py-3">
           <div className="max-w-lg mx-auto flex items-center gap-3">
-            <Link href="/tickets" className="text-tinta/50 hover:text-tinta transition-colors" aria-label="Volver a mis tickets">
+            <Link href="/tickets" className="text-tq-ink2 hover:text-tq-ink transition-colors" aria-label="Volver a mis tickets">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </Link>
-            <p className="font-medium text-tinta text-sm">{ticket.cadena ?? 'Ticket'}</p>
+            <p className="font-medium text-tq-ink text-sm">{ticket.cadena ?? 'Ticket'}</p>
           </div>
         </div>
         <div className="max-w-lg mx-auto px-4 py-10">
-          <div role="alert" className="rounded-xl border border-pimenton/20 bg-pimenton/5 p-6 text-center">
-            <p className="text-sm font-medium text-pimenton mb-1">Error al procesar el ticket</p>
-            <p className="text-xs text-tinta/50 mb-4">
+          <div role="alert" className="rounded-[20px] bg-tq-coral-soft p-6 text-center">
+            <p className="text-sm font-medium text-tq-coral-text mb-1">Error al procesar el ticket</p>
+            <p className="text-xs text-tq-ink2 mb-4">
               No se pudo analizar la imagen. Intenta subir de nuevo con una foto más clara.
             </p>
             <Link
-              href="/subir"
-              className="inline-block rounded-md bg-verde px-4 py-2 text-sm font-medium text-papel hover:opacity-90 transition-opacity"
+              href="/escanear"
+              className="inline-flex h-11 px-5 rounded-[14px] bg-tq-mint items-center justify-center text-sm font-bold text-tq-mint-ink no-underline transition-transform active:scale-[0.97]"
             >
               Subir de nuevo
             </Link>
@@ -296,25 +296,25 @@ export default function ReviewClient({
   }
 
   return (
-    <main className="min-h-screen pb-28">
+    <main className="min-h-screen pb-32 bg-tq-bg font-jakarta">
       {/* Header */}
-      <div className="sticky top-0 z-10 border-b border-linea bg-papel/90 backdrop-blur-sm px-4 py-3">
+      <div className="sticky top-0 z-10 border-b border-tq-line bg-tq-bg/90 backdrop-blur-sm px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
-          <Link href="/tickets" className="text-tinta/50 hover:text-tinta transition-colors" aria-label="Volver a mis tickets">
+          <Link href="/tickets" className="text-tq-ink2 hover:text-tq-ink transition-colors" aria-label="Volver a mis tickets">
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
           </Link>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-tinta text-sm truncate">
+            <p className="font-semibold text-tq-ink text-sm truncate">
               {ticket.cadena ?? 'Ticket'}
               {ticket.fecha && (
-                <span className="text-tinta/40 font-normal"> · {fmtFecha(ticket.fecha)}</span>
+                <span className="text-tq-ink2 font-normal"> · {fmtFecha(ticket.fecha)}</span>
               )}
             </p>
           </div>
           {ticket.total != null && (
-            <span className="font-mono text-sm font-semibold text-tinta shrink-0">
+            <span className="font-mono text-sm font-semibold text-tq-ink shrink-0">
               {fmtEuros(ticket.total)}
             </span>
           )}
@@ -324,10 +324,10 @@ export default function ReviewClient({
       <div className="max-w-lg mx-auto px-4 pt-4">
         {/* Avisos si no cuadra */}
         {ticket.cuadra === false && ticket.avisos?.length > 0 && (
-          <div className="mb-4 rounded-lg border border-pimenton/20 bg-pimenton/5 p-3">
-            <p className="text-xs font-medium text-pimenton mb-1">Revisa estos importes</p>
+          <div className="mb-4 rounded-[16px] bg-tq-coral-soft p-3">
+            <p className="text-xs font-medium text-tq-coral-text mb-1">Revisa estos importes</p>
             {ticket.avisos.map((a, i) => (
-              <p key={i} className="text-xs text-pimenton/80 leading-snug">
+              <p key={i} className="text-xs text-tq-coral-text leading-snug">
                 {a}
               </p>
             ))}
@@ -336,14 +336,14 @@ export default function ReviewClient({
 
         {/* Ya confirmado */}
         {yaConfirmado && (
-          <div className="mb-4 rounded-lg border border-verde/20 bg-verde/5 px-3 py-2">
-            <p className="text-xs font-medium text-verde">Ticket confirmado</p>
+          <div className="mb-4 rounded-[16px] bg-tq-mint-soft px-3 py-2">
+            <p className="text-xs font-medium text-tq-mint-text">Ticket confirmado</p>
           </div>
         )}
 
         {/* Lista de líneas */}
         {lineasVisibles.length === 0 ? (
-          <p className="text-sm text-tinta/40 py-8 text-center">
+          <p className="text-sm text-tq-ink2 py-8 text-center">
             No se detectaron líneas de producto.
           </p>
         ) : (
@@ -361,7 +361,7 @@ export default function ReviewClient({
 
         {/* Resumen */}
         {lineasVisibles.length > 0 && (
-          <div role="status" aria-live="polite" className="mt-4 pt-4 border-t border-linea flex justify-between text-xs text-tinta/40">
+          <div role="status" aria-live="polite" className="mt-4 pt-4 border-t border-tq-line flex justify-between text-xs text-tq-ink2">
             <span>
               {lineasVisibles.filter((l) => l.estado === 'auto' || l.estado === 'confirmada').length} identificadas
             </span>
@@ -377,10 +377,10 @@ export default function ReviewClient({
 
       {/* Botón confirmar sticky */}
       {!yaConfirmado && (
-        <div className="fixed bottom-0 left-0 right-0 border-t border-linea bg-papel/95 backdrop-blur-sm p-4">
+        <div className="fixed bottom-0 left-0 right-0 border-t border-tq-line bg-tq-bg/95 backdrop-blur-sm p-4">
           <div className="max-w-lg mx-auto space-y-2">
             {error && (
-              <p role="alert" className="text-xs text-pimenton text-center">
+              <p role="alert" className="text-xs text-tq-coral-text text-center">
                 {error}
               </p>
             )}
@@ -388,11 +388,11 @@ export default function ReviewClient({
               onClick={confirmarTicket}
               disabled={cargando}
               aria-busy={cargando}
-              className="w-full rounded-md bg-verde px-4 py-2.5 text-sm font-medium text-papel transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full h-14 rounded-[18px] bg-tq-mint font-bold text-tq-mint-ink text-base transition-transform active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {cargando ? (
                 <>
-                  <svg aria-hidden="true" className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <svg aria-hidden="true" className="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>

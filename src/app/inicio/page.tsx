@@ -4,28 +4,9 @@ import { createClient } from '@/lib/supabase/server';
 import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
 import { TabBar } from '@/components/ui/tab-bar';
+import { GRUPOS, mapGrupo, type Grupo } from '@/lib/grupos';
 
 export const dynamic = 'force-dynamic';
-
-/* ── Category mapping DB → design groups ── */
-
-const GRUPOS = {
-  Frescos:  { color: '#34D399', order: 0, cats: ['Carne', 'Pescado', 'Fruta y verdura', 'Lácteos', 'Panadería', 'Charcutería'] },
-  Despensa: { color: '#60A5FA', order: 1, cats: ['Conservas', 'Dulces y snacks', 'Congelados'] },
-  Bebidas:  { color: '#FBBF24', order: 2, cats: ['Bebidas'] },
-  Limpieza: { color: '#A78BFA', order: 3, cats: ['Limpieza', 'Droguería'] },
-  Higiene:  { color: '#F9A8D4', order: 4, cats: ['Higiene'] },
-  Otros:    { color: '#B8C4BF', order: 5, cats: ['Otros'] },
-} as const;
-
-type Grupo = keyof typeof GRUPOS;
-
-function mapGrupo(cat: string): Grupo {
-  for (const [grupo, { cats }] of Object.entries(GRUPOS) as [Grupo, { cats: readonly string[] }][]) {
-    if ((cats as readonly string[]).includes(cat)) return grupo;
-  }
-  return 'Otros';
-}
 
 /* ── Supermarket tile colors ── */
 
