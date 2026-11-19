@@ -16,7 +16,7 @@ export default async function ProductosPage() {
     .from('ticket_lineas')
     .select('precio, producto_id, alias_id, productos(id, nombre, marca, categoria), alias(sugerencia), tickets(fecha, cadena)')
     .in('estado', ['auto', 'sugerida', 'confirmada'])
-    .not('alias_id', 'is', null);
+    .or('alias_id.not.is.null,producto_id.not.is.null');
 
   const map = new Map<string, ProdAgregado>();
 
