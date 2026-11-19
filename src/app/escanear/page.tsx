@@ -64,7 +64,7 @@ export default function EscanearPage() {
       {/* Header */}
       <header className="flex items-center gap-3 px-5 pt-14 pb-4">
         <Link
-          href="/inicio"
+          href="/"
           aria-label="Volver al inicio"
           className="w-10 h-10 rounded-[14px] border border-tq-line bg-tq-card text-tq-ink flex items-center justify-center no-underline transition-transform active:scale-[0.95]"
         >

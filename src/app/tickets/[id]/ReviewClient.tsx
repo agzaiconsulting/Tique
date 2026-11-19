@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -118,8 +118,8 @@ function LineaItem({
           <p className="text-sm text-tq-ink2 leading-snug">{linea.texto_original}</p>
         )}
 
-        {/* Botones para sugeridas */}
-        {linea.estado === 'sugerida' && nombre && !corrigiendo && (
+          {/* Acciones según estado */}
+        {!corrigiendo && linea.estado === 'sugerida' && nombre && (
           <div className="flex gap-2 mt-1.5">
             <button
               onClick={() => onConfirmar(linea.id)}
@@ -136,6 +136,24 @@ function LineaItem({
           </div>
         )}
 
+        {!corrigiendo && (linea.estado === 'auto' || linea.estado === 'confirmada') && (
+          <button
+            onClick={() => setCorrigiendo(true)}
+            className="mt-1 text-xs text-tq-ink2 hover:text-tq-ink transition-colors underline-offset-2 hover:underline"
+          >
+            No es correcto
+          </button>
+        )}
+
+        {!corrigiendo && linea.estado === 'sin_identificar' && (
+          <button
+            onClick={() => setCorrigiendo(true)}
+            className="mt-1.5 rounded-md border border-tq-line px-2 py-0.5 text-xs font-medium text-tq-ink2 hover:text-tq-ink transition-colors"
+          >
+            ¿Qué es este producto?
+          </button>
+        )}
+
         {/* Input de corrección */}
         {corrigiendo && (
           <div className="mt-2 space-y-1.5">
@@ -148,7 +166,7 @@ function LineaItem({
                 if (e.key === 'Enter' && texto.trim()) handleEnviarCorreccion();
                 if (e.key === 'Escape') { setCorrigiendo(false); setTexto(''); }
               }}
-              placeholder="¿Qué es este producto?"
+              placeholder="Escribe el nombre correcto del producto"
               className="w-full rounded-md border border-tq-line bg-tq-card px-2.5 py-1.5 text-xs text-tq-ink placeholder:text-tq-ink2 focus:border-tq-mint focus:outline-none focus:ring-1 focus:ring-tq-mint"
             />
             <div className="flex gap-2">
@@ -197,6 +215,12 @@ export default function ReviewClient({
   const [lineas, setLineas] = useState<LineaConSugerencia[]>(initialLineas);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (ticket.estado !== 'procesando') return;
+    const id = setInterval(() => router.refresh(), 2000);
+    return () => clearInterval(id);
+  }, [ticket.estado, router]);
 
   // ---------------------------------------------------------------- estados especiales
   if (ticket.estado === 'procesando') {

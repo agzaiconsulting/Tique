@@ -11,7 +11,7 @@ const tabs: { key: TabKey; label: string; href: string; icon: React.ReactNode }[
   {
     key: 'inicio',
     label: 'Inicio',
-    href: '/inicio',
+    href: '/',
     icon: (
       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 10.5 12 3l9 7.5" />

@@ -59,8 +59,13 @@
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-ibm-plex-mono), 'Courier New', monospace;
-  --font-jakarta: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-jakarta: var(--font-sora), system-ui, sans-serif;
   --font-jetbrains: var(--font-jetbrains-mono), 'Courier New', monospace;
+
+  /* Brand palette */
+  --color-brand: #0F5C47;
+  --color-brand-dark: #0A3F31;
+  --color-accent: #C4F25A;
 
   /* Static Tique tokens (no dark mode change) */
   --color-tq-mint: #34D399;

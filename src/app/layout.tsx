@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Fraunces, Archivo, IBM_Plex_Mono, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
+import { Fraunces, Archivo, IBM_Plex_Mono, Sora, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -21,10 +21,10 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const sora = Sora({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta',
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-sora',
   display: 'swap',
 });
 
@@ -38,13 +38,17 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Tique',
   description: 'Escanea tus tickets de supermercado y controla tu gasto real.',
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="es"
-      className={`${fraunces.variable} ${archivo.variable} ${ibmPlexMono.variable} ${plusJakarta.variable} ${jetbrainsMono.variable}`}
+      className={`${fraunces.variable} ${archivo.variable} ${ibmPlexMono.variable} ${sora.variable} ${jetbrainsMono.variable}`}
     >
       <body>{children}</body>
     </html>
