@@ -16,7 +16,7 @@ export async function PATCH(
   if (!user) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
   const body = (await request.json()) as { accion?: string; correccion?: string };
-  if (body.accion !== 'confirmar' && body.accion !== 'rechazar')
+  if (body.accion !== 'confirmar' && body.accion !== 'rechazar' && body.accion !== 'eliminar')
     return NextResponse.json({ error: 'Acción inválida' }, { status: 400 });
 
   // Verificar que la línea pertenece a un ticket del usuario (RLS en ticket_lineas)
@@ -29,6 +29,12 @@ export async function PATCH(
   if (!linea) return NextResponse.json({ error: 'Línea no encontrada' }, { status: 404 });
 
   const service = createServiceClient();
+
+  if (body.accion === 'eliminar') {
+    await service.from('ticket_lineas').update({ estado: 'descartada' }).eq('id', id);
+    return NextResponse.json({ ok: true });
+  }
+
   const nuevoEstado = body.accion === 'confirmar' ? 'confirmada' : 'sin_identificar';
 
   const updatePayload: Record<string, unknown> = { estado: nuevoEstado };

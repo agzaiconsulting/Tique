@@ -65,10 +65,12 @@ function LineaItem({
   linea,
   onConfirmar,
   onRechazar,
+  onEliminar,
 }: {
   linea: LineaConSugerencia;
   onConfirmar: (id: string) => void;
   onRechazar: (id: string, correccion: string) => void;
+  onEliminar: (id: string) => void;
 }) {
   const [corrigiendo, setCorrigiendo] = useState(false);
   const [texto, setTexto] = useState('');
@@ -188,15 +190,26 @@ function LineaItem({
         )}
       </div>
 
-      {/* Precio */}
-      <div className="shrink-0 text-right">
+      {/* Precio + eliminar */}
+      <div className="shrink-0 flex flex-col items-end gap-1.5">
         <span className="font-mono text-sm font-medium text-tq-ink">
           {fmtEuros(linea.precio)}
         </span>
         {linea.kg != null && linea.eurkg != null && (
-          <p className="text-xs text-tq-ink2 mt-0.5">
+          <p className="text-xs text-tq-ink2">
             {linea.kg.toLocaleString('es-ES', { minimumFractionDigits: 3 })} kg
           </p>
+        )}
+        {!corrigiendo && (
+          <button
+            onClick={() => onEliminar(linea.id)}
+            aria-label="Eliminar línea"
+            className="w-6 h-6 flex items-center justify-center rounded-md text-tq-ink2 hover:text-tq-coral-text hover:bg-tq-coral-soft transition-colors"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         )}
       </div>
     </li>
@@ -281,6 +294,21 @@ export default function ReviewClient({
 
   const yaConfirmado = ticket.estado === 'confirmado';
   const lineasVisibles = lineas.filter((l) => l.estado !== 'descartada');
+
+  async function eliminarLinea(id: string) {
+    const original = lineas.find((l) => l.id === id);
+    setLineas((prev) => prev.map((l) => (l.id === id ? { ...l, estado: 'descartada' as const } : l)));
+    try {
+      const res = await fetch(`/api/ticket-lineas/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accion: 'eliminar' }),
+      });
+      if (!res.ok) throw new Error();
+    } catch {
+      if (original) setLineas((prev) => prev.map((l) => (l.id === id ? original : l)));
+    }
+  }
 
   async function actualizarLinea(id: string, accion: 'confirmar' | 'rechazar', correccion?: string) {
     const nuevoEstado = accion === 'confirmar' ? 'confirmada' : 'sin_identificar';
@@ -378,6 +406,7 @@ export default function ReviewClient({
                 linea={l}
                 onConfirmar={(id) => actualizarLinea(id, 'confirmar')}
                 onRechazar={(id, correccion) => actualizarLinea(id, 'rechazar', correccion)}
+                onEliminar={eliminarLinea}
               />
             ))}
           </ul>
